@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/colored_transparent_packed.png" type="Texture" id=2]
+[ext_resource path="res://objects/bullets/WaterBullet.gd" type="Script" id=3]
+
+[node name="WaterBullet" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+speed = 500
+
+[node name="Sprite" parent="." index="0"]
+rotation = -1.5708
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 224, 288, 16, 16 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/bullets/BaseBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/colored_transparent_packed.png" type="Texture" id=2]
+[ext_resource path="res://objects/bullets/LeafBullet.gd" type="Script" id=3]
+
+[node name="LeafBullet" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+rotation = 1.5708
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
