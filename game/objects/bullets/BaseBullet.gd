@@ -20,4 +20,5 @@ func _on_VisibilityNotifier2D_screen_exited() -> void:
 
 
 func _on_BaseBullet_body_entered(body: Node) -> void:
+	print("bull")
 	queue_free()

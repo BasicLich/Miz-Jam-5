@@ -1,6 +1,174 @@
-[gd_scene format=2]
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://assets/art/player/tile354.png" type="Texture" id=1]
+[ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/player/tile358.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/tile518.png" type="Texture" id=4]
+[ext_resource path="res://resources/interface/splash_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/Splashscreen.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/art/tile556.png" type="Texture" id=8]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform float cut_off: hint_range(0.0, 1.0) = 0;
+uniform float rotation_degrees: hint_range(0.0, 360.0) = 0;
+uniform sampler2D gradient;
+
+vec2 rotateUV(vec2 uv, vec2 piv, float rotation_deg) {
+	
+	float rotation = radians(rotation_deg);
+    mat2 rotation_matrix=mat2(  vec2(sin(rotation),-cos(rotation)),
+                                vec2(cos(rotation),sin(rotation))
+                                );
+    uv -= piv;
+    uv= uv*rotation_matrix;
+    uv += piv;
+    return uv;
+}
+
+
+void fragment(){
+	
+	vec2 rotated_uvs = rotateUV(UV, vec2(0.5), rotation_degrees);
+	vec4 textur = texture(gradient, rotated_uvs );
+	
+	COLOR = textur;
+	
+	
+//	COLOR.g = cut_off;
+}"
+custom_defines = ""
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray(  )
+colors = PoolColorArray(  )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 8 )
+shader_param/cut_off = 0.0
+shader_param/rotation_degrees = 143.226
+shader_param/gradient = SubResource( 10 )
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.216216, 0.72973 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.492188, 0, 1, 1, 0.912328, 0.293103, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 10.0
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 200.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+color_ramp = SubResource( 6 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.952941, 0.952941, 0.952941, 1 )
+border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing = false
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 5.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+color = Color( 0.454902, 0.239216, 0.0352941, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "splash"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TreeGuy:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -75.814, 520.398 ), Vector2( 1611.02, 239.538 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TreeGuy:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -15.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TreeGuy/Panel/Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "SplashComplete"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FireParticles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.28882e-05, -6.10352e-05 ), Vector2( 1360.4, -3.17485 ) ]
+}
 
 [node name="Splashscreen" type="Node"]
+script = ExtResource( 6 )
+game_scene = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -9,3 +177,242 @@ color = Color( 0.521569, 0.788235, 0.788235, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.521569, 0.788235, 0.788235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FireParticles2D" type="Particles2D" parent="."]
+position = Vector2( 2.28882e-05, -6.10352e-05 )
+amount = 20
+lifetime = 3.0
+local_coords = false
+process_material = SubResource( 7 )
+texture = ExtResource( 8 )
+
+[node name="TreeGuy" type="Node2D" parent="."]
+position = Vector2( -75.814, 520.398 )
+rotation = -0.261799
+
+[node name="Tree" type="Node2D" parent="TreeGuy"]
+rotation = 1.5708
+
+[node name="Stem" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.529412, 0.27451, 0.027451, 1 )
+
+[node name="Tree9" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 5.72205e-06, 128 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree4" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 3.8147e-06, 88 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree3" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 7.62939e-06, 184 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 432, 208, 16, 16 )
+
+[node name="Tree6" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 16, 80 )
+rotation = 0.849216
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Tree2" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 0, 24 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Stem2" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.454902, 0.239216, 0.0352941, 1 )
+position = Vector2( 1.18921, 8.32443 )
+scale = Vector2( 0.924438, 0.924438 )
+
+[node name="Tree9" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 5.72205e-06, 128 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree4" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 3.8147e-06, 88 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree3" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 7.62939e-06, 184 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 432, 208, 16, 16 )
+
+[node name="Tree6" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 16, 80 )
+rotation = 0.849216
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Tree2" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 0, 24 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Leaves" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.207843, 0.815686, 0.231373, 1 )
+
+[node name="Tree8" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( 40, 56 )
+rotation = 0.84073
+scale = Vector2( 1.98392, 1.98392 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
+[node name="Tree7" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( -32, 16 )
+rotation = -0.0807886
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree5" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( 32, 16 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="Leaves2" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.145098, 0.647059, 0.164706, 1 )
+position = Vector2( 0.59462, 2.97302 )
+scale = Vector2( 0.949007, 0.949007 )
+
+[node name="Tree8" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( 40, 56 )
+rotation = 0.84073
+scale = Vector2( 1.98392, 1.98392 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
+[node name="Tree7" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( -32, 16 )
+rotation = -0.0807886
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree5" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( 32, 16 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="Guy" type="Node2D" parent="TreeGuy"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="TreeGuy/Guy"]
+position = Vector2( -107.15, -42.8598 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="Sprite" type="Sprite" parent="TreeGuy/Guy"]
+visible = false
+position = Vector2( -102.387, -36.5102 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 336, 112, 16, 16 )
+
+[node name="Panel" type="Panel" parent="TreeGuy"]
+margin_left = -82.4111
+margin_top = -170.239
+margin_right = 103.589
+margin_bottom = -76.239
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TreeGuy/Panel"]
+show_behind_parent = true
+margin_left = -10.5625
+margin_top = 103.37
+margin_right = 39.4375
+margin_bottom = 149.37
+rect_rotation = -105.81
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TreeGuy/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "AAAAAAAAAA"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Particles2D" type="Particles2D" parent="TreeGuy"]
+position = Vector2( -171.154, 0.555115 )
+amount = 50
+lifetime = 4.0
+local_coords = false
+process_material = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "splash"
+anims/splash = SubResource( 3 )

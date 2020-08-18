@@ -1,155 +1,27 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/colored_transparent_packed.png" type="Texture" id=1]
+[ext_resource path="res://objects/player/player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://objects/player/Player.gd" type="Script" id=2]
-[ext_resource path="res://objects/bullets/LeafBullet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/shaders/cutout.shader" type="Shader" id=4]
-[ext_resource path="res://objects/player/WaterTank.gd" type="Script" id=5]
-[ext_resource path="res://objects/bullets/WaterBullet.tscn" type="PackedScene" id=6]
-
-[sub_resource type="ParticlesMaterial" id=6]
-flag_disable_z = true
-gravity = Vector3( 0, 98, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-
-[sub_resource type="Animation" id=4]
-resource_name = "shoot"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/path = NodePath("TreeGun/Leaves:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 4 )
-
-[sub_resource type="Curve" id=3]
-_data = [ Vector2( 0, 1 ), 0.0, -0.743402, 0, 0, Vector2( 1, 0 ), -1.0, 0.0, 1, 0 ]
-
-[sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.654321, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = ExtResource( 4 )
-shader_param/cut_off = 0.0
+extents = Vector2( 12, 12 )
 
 [node name="Player" type="KinematicBody2D"]
-scale = Vector2( 3, 3 )
+collision_layer = 2
+collision_mask = 13
 script = ExtResource( 2 )
-speed = 600
-leaf_bullet = ExtResource( 3 )
-water_bullet_scene = ExtResource( 6 )
+max_velocity = Vector2( 400, 1000 )
+jump_force = 600.0
+gravity = 2000.0
 
-[node name="Tree" type="Node2D" parent="."]
-
-[node name="Trunk1" type="Sprite" parent="Tree"]
-position = Vector2( -12, 0 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 288, 96, 16, 16 )
-
-[node name="Trunk2" type="Sprite" parent="Tree"]
-rotation = 1.5708
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 304, 96, 16, 16 )
-
-[node name="Trunk3" type="Sprite" parent="Tree"]
-position = Vector2( 12, 0 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 304, 96, 16, 16 )
-
-[node name="Passenger" type="Sprite" parent="Tree"]
-position = Vector2( 0, -12 )
-texture = ExtResource( 1 )
-hframes = 6
-frame = 5
-region_enabled = true
-region_rect = Rect2( 288, 144, 96, 16 )
-
-[node name="TreeGun" type="Node2D" parent="."]
-position = Vector2( 20, 0 )
-
-[node name="Leaves" type="Sprite" parent="TreeGun"]
-visible = false
-position = Vector2( 6, 0 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 320, 80, 16, 16 )
-
-[node name="Particles2D" type="Particles2D" parent="TreeGun"]
-visible = false
-process_material = SubResource( 6 )
-
-[node name="TreeGun_AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/shoot = SubResource( 4 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+scale = Vector2( 2, 2 )
+frames = ExtResource( 1 )
+animation = "move"
+frame = 2
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -6, 0 )
+position = Vector2( 0, -12 )
 shape = SubResource( 1 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-limit_left = -10
-limit_top = -10
-limit_bottom = 778
-smoothing_enabled = true
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2( -20, 0 )
-z_index = -1
-amount = 50
-lifetime = 0.2
-direction = Vector2( -1, 0 )
-spread = 6.21
-gravity = Vector2( 0, 0 )
-initial_velocity = 50.0
-scale_amount = 6.0
-scale_amount_curve = SubResource( 3 )
-color_ramp = SubResource( 2 )
-
-[node name="LeavesShootTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="WaterRegenTimer" type="Timer" parent="."]
-autostart = true
-
-[node name="WaterTank" type="Node2D" parent="."]
-script = ExtResource( 5 )
-
-[node name="WaterLevel" type="ColorRect" parent="WaterTank"]
-modulate = Color( 0, 0.905882, 1, 1 )
-material = SubResource( 5 )
-margin_left = -16.0
-margin_top = -12.0
-margin_right = -8.0
-margin_bottom = -3.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="WaterTank" type="Sprite" parent="WaterTank"]
-modulate = Color( 0.74902, 0.47451, 0.345098, 1 )
-position = Vector2( -12, -8 )
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 128, 160, 16, 16 )
-[connection signal="timeout" from="LeavesShootTimer" to="." method="_on_LeavesShootTimer_timeout"]
-[connection signal="timeout" from="WaterRegenTimer" to="." method="_on_WaterRegenTimer_timeout"]
