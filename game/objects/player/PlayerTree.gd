@@ -79,10 +79,10 @@ func move_state(delta: float) -> void:
 	
 	tree_gun.rotation = to_pointer_direction.angle()
 	
-	if Input.is_action_just_pressed("shoot_primary"):
+	if Input.is_action_just_pressed("shoot_secondary"):
 		if is_zero_approx(leaves_shoot_timer.time_left):
 			shoot_leaves()
-	elif Input.is_action_just_pressed("shoot_secondary"):		
+	elif Input.is_action_just_pressed("shoot_primary"):		
 		shoot_water()
 	
 	var new_velocity = direction * speed

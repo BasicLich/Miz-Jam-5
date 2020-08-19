@@ -1,42 +1,38 @@
 extends Node2D
 
 export var player_scene: PackedScene
+export var tree: PackedScene
 
 onready var main_menu_ui: MainMenuUI = $MainMenuUI
 onready var playerTree = $PlayerTree
 onready var player: Player = $Player
-onready var neutral_tile_map: TileMap = $NeutralTileMap
-onready var good_tile_map: TileMap = $GoodTileMap
+onready var tile_map: TileMap = $TileMap
+onready var camera_follower: CameraFollower = $CameraFollower
 
 func _ready() -> void:
+	SetupGame()
+
+func _process(delta: float) -> void:
+	Globals.play_time += delta
+
+
+func SetupGame() -> void:
 	
+	# Connect signals
 	main_menu_ui.connect("play_button_pressed", self, "on_play_button_pressed")
+	Globals.connect("bullet_hit", self, "on_bullet_hit")
 	
+	#
 	main_menu_ui.ShowMainScreen()
 	get_tree().paused = true
 	
+	camera_follower.SetTarget(player)
+
 func on_play_button_pressed() -> void:
 	get_tree().paused = false
 	main_menu_ui.HideMainMenu()
 	player.TakeControl(true)
 	playerTree.TakeControl(true)
-
-func _process(delta: float) -> void:
-#	print(str(get_global_mouse_position()) + " : " + str(neutral_tile_map.world_to_map(get_global_mouse_position())))
-	if Input.is_action_just_pressed("shoot_primary"):
-		var global_mouse_pos: Vector2 = get_global_mouse_position()
-		var map_coords = neutral_tile_map.world_to_map(global_mouse_pos / 2.0)
-		var cell = neutral_tile_map.get_cell(map_coords.x, map_coords.y)
-		var autotile = neutral_tile_map.get_cell_autotile_coord(map_coords.x, map_coords.y)
-		print("Cell %d at %s, autotile = %s" % [cell, str(map_coords), str(autotile)])
-		if cell != -1:
-			neutral_tile_map.set_cell(map_coords.x, map_coords.y, -1)
-			good_tile_map.set_cell(map_coords.x, map_coords.y, 0, false, false, false, autotile)
-	
-	
-
-#		player.TakeControl(!player.in_control)
-#		playerTree.TakeControl(!playerTree.in_control)
 
 
 func _on_PlayerTree_tree_landed() -> void:
@@ -49,7 +45,20 @@ func _on_PlayerTree_tree_landed() -> void:
 	player = player_instance
 	player.position = playerTree.passange_sprite.global_position
 	player.TakeControl(true)
+	
+	camera_follower.SetTarget(player)
 
 func _on_PlayerTree_tree_launched() -> void:
 	player.queue_free()
-	pass
+	camera_follower.SetTarget(playerTree)
+	
+func on_bullet_hit(bullet, collision) -> void:
+	if bullet is LeafBullet:
+		var tree_instance: BaseTree = tree.instance() as BaseTree
+		add_child(tree_instance)
+		tree_instance.global_position = collision.position
+		print(collision.collider)
+	if bullet is WaterBullet:
+		if collision.collider is MiniFire:
+			var enemy: MiniFire = collision.collider
+			enemy.health_system.Damage(1)

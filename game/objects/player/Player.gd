@@ -11,6 +11,7 @@ export var jump_force: float = 500.0
 export var gravity: = 3000.0
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
+onready var health_system: HealthSystem = $HealthSystem
 
 var _velocity: = Vector2.ZERO
 var in_control: bool = true
@@ -49,11 +50,11 @@ func move_state(delta: float) -> void:
 	
 	
 	_velocity = calculate_move_velocity(_velocity, direction, max_velocity, is_jump_interrupted)
-	_velocity = move_and_slide(_velocity, FLOOR_NORMAL)
+	_velocity = move_and_slide(_velocity, FLOOR_NORMAL, true)
 
-	if abs(_velocity.y) > 0:
-		animated_sprite.play("jump")
-	elif abs(direction.x) > 0:
+#	if abs(_velocity.y) > 0:
+#		animated_sprite.play("jump")
+	if abs(direction.x) > 0:
 		animated_sprite.play("move")
 		animated_sprite.flip_h = true if direction.x < 0 else false
 	else:

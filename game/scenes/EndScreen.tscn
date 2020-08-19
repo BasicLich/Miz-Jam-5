@@ -1,3 +1,393 @@
-[gd_scene format=2]
+[gd_scene load_steps=18 format=2]
 
-[node name="EndScreen" type="Node2D"]
+[ext_resource path="res://assets/art/tile518.png" type="Texture" id=1]
+[ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/player/tile354.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/player/tile358.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/life/tile048.png" type="Texture" id=5]
+[ext_resource path="res://resources/interface/splash_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://resources/interface/game_theme.tres" type="Theme" id=7]
+[ext_resource path="res://resources/interface/title_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scenes/EndScreen.gd" type="Script" id=9]
+[ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=10]
+
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0.0337838, 0.202703, 0.777027, 0.993243 )
+colors = PoolColorArray( 0.0509804, 0.0823529, 0.0392157, 0, 0.588235, 0.894118, 0.458824, 1, 0.54902, 0.882353, 0.407843, 1, 0.996078, 1, 0.992157, 0 )
+
+[sub_resource type="GradientTexture" id=13]
+gradient = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 2
+emission_box_extents = Vector3( 700, 512, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+color_ramp = SubResource( 13 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.952941, 0.952941, 0.952941, 1 )
+border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing = false
+
+[sub_resource type="ParticlesMaterial" id=10]
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 5.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 4.0
+color = Color( 0.454902, 0.239216, 0.0352941, 1 )
+
+[sub_resource type="Animation" id=14]
+resource_name = "end"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "EndComplete"
+} ]
+}
+
+[node name="EndScreen" type="Node"]
+script = ExtResource( 9 )
+game_scene = ExtResource( 10 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.396078, 0.611765, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.00392157, 0, 0.301961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FireParticles2D" type="Particles2D" parent="."]
+position = Vector2( 2.28882e-05, -6.10352e-05 )
+amount = 20
+lifetime = 4.0
+local_coords = false
+process_material = SubResource( 7 )
+texture = ExtResource( 5 )
+
+[node name="TreeGuy" type="Node2D" parent="."]
+position = Vector2( -75.814, 520.398 )
+rotation = -0.261799
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Tree" type="Node2D" parent="TreeGuy"]
+rotation = 1.5708
+
+[node name="Stem" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.529412, 0.27451, 0.027451, 1 )
+
+[node name="Tree9" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 5.72205e-06, 128 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree4" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 3.8147e-06, 88 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree3" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 7.62939e-06, 184 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 432, 208, 16, 16 )
+
+[node name="Tree6" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 16, 80 )
+rotation = 0.849216
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Tree2" type="Sprite" parent="TreeGuy/Tree/Stem"]
+position = Vector2( 0, 24 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Stem2" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.454902, 0.239216, 0.0352941, 1 )
+position = Vector2( 1.18921, 8.32443 )
+scale = Vector2( 0.924438, 0.924438 )
+
+[node name="Tree9" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 5.72205e-06, 128 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree4" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 3.8147e-06, 88 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 208, 16, 16 )
+
+[node name="Tree3" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 7.62939e-06, 184 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 432, 208, 16, 16 )
+
+[node name="Tree6" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 16, 80 )
+rotation = 0.849216
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Tree2" type="Sprite" parent="TreeGuy/Tree/Stem2"]
+position = Vector2( 0, 24 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Leaves" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.207843, 0.815686, 0.231373, 1 )
+
+[node name="Tree8" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( 40, 56 )
+rotation = 0.84073
+scale = Vector2( 1.98392, 1.98392 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
+[node name="Tree7" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( -32, 16 )
+rotation = -0.0807886
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree5" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+position = Vector2( 32, 16 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree" type="Sprite" parent="TreeGuy/Tree/Leaves"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="Leaves2" type="Node2D" parent="TreeGuy/Tree"]
+modulate = Color( 0.145098, 0.647059, 0.164706, 1 )
+position = Vector2( 0.59462, 2.97302 )
+scale = Vector2( 0.949007, 0.949007 )
+
+[node name="Tree8" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( 40, 56 )
+rotation = 0.84073
+scale = Vector2( 1.98392, 1.98392 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
+[node name="Tree7" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( -32, 16 )
+rotation = -0.0807886
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree5" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+position = Vector2( 32, 16 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 16 )
+
+[node name="Tree" type="Sprite" parent="TreeGuy/Tree/Leaves2"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 64, 32, 16, 16 )
+
+[node name="Guy" type="Node2D" parent="TreeGuy"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="TreeGuy/Guy"]
+position = Vector2( -107.15, -42.8598 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 8 )
+frame = 1
+
+[node name="Sprite" type="Sprite" parent="TreeGuy/Guy"]
+visible = false
+position = Vector2( -102.387, -36.5102 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 336, 112, 16, 16 )
+
+[node name="Panel" type="Panel" parent="TreeGuy"]
+visible = false
+margin_left = -82.4111
+margin_top = -170.239
+margin_right = 103.589
+margin_bottom = -76.239
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TreeGuy/Panel"]
+show_behind_parent = true
+margin_left = -10.5625
+margin_top = 103.37
+margin_right = 39.4375
+margin_bottom = 149.37
+rect_rotation = -105.81
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TreeGuy/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "AAAAAAAAAA"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Particles2D" type="Particles2D" parent="TreeGuy"]
+visible = false
+position = Vector2( -171.154, 0.555115 )
+amount = 50
+lifetime = 4.0
+local_coords = false
+process_material = SubResource( 10 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -227.0
+margin_right = 395.0
+margin_bottom = 227.0
+theme = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="Label" parent="VBoxContainer"]
+margin_right = 790.0
+margin_bottom = 294.0
+rect_pivot_offset = Vector2( 238, 58 )
+text = "Made during the Miz Jam 1
+
+Art:
+Kenney's 1-Bit Pack
+
+Music:
+
+Sounds:
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+visible = false
+margin_left = 135.0
+margin_top = 274.0
+margin_right = 178.0
+margin_bottom = 294.0
+size_flags_horizontal = 4
+text = "PLAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "end"
+anims/end = SubResource( 14 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="Label" parent="CenterContainer"]
+margin_left = 288.0
+margin_top = 326.0
+margin_right = 1078.0
+margin_bottom = 442.0
+rect_pivot_offset = Vector2( 238, 58 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 8 )
+text = "Thanks for playing"
+align = 1
+valign = 1

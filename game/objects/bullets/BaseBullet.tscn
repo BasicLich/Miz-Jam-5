@@ -3,8 +3,9 @@
 [ext_resource path="res://objects/bullets/BaseBullet.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 6.3799
 
-[node name="BaseBullet" type="Area2D"]
+[node name="BaseBullet" type="KinematicBody2D"]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource( 1 )
@@ -15,5 +16,4 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-[connection signal="body_entered" from="." to="." method="_on_BaseBullet_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

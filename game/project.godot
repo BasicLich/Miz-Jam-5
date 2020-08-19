@@ -9,10 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
+"base": "KinematicBody2D",
 "class": "BaseBullet",
 "language": "GDScript",
 "path": "res://objects/bullets/BaseBullet.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "BaseEnemyFire",
+"language": "GDScript",
+"path": "res://objects/enemies/BaseEnemyFire.gd"
+}, {
+"base": "Area2D",
+"class": "BaseTree",
+"language": "GDScript",
+"path": "res://objects/trees/BaseTree.gd"
+}, {
+"base": "Node2D",
+"class": "CameraFollower",
+"language": "GDScript",
+"path": "res://objects/camera/CameraFollower.gd"
+}, {
+"base": "Node",
+"class": "HealthSystem",
+"language": "GDScript",
+"path": "res://objects/common/HealthSystem.gd"
 }, {
 "base": "BaseBullet",
 "class": "LeafBullet",
@@ -25,9 +45,19 @@ _global_script_classes=[ {
 "path": "res://objects/interface/MainMenuUI.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "MiniFire",
+"language": "GDScript",
+"path": "res://objects/enemies/MiniFire.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://objects/player/Player.gd"
+}, {
+"base": "Area2D",
+"class": "PlayerDetectionZone",
+"language": "GDScript",
+"path": "res://objects/enemies/PlayerDetectionZone.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "PlayerTree",
@@ -46,9 +76,15 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseBullet": "",
+"BaseEnemyFire": "",
+"BaseTree": "",
+"CameraFollower": "",
+"HealthSystem": "",
 "LeafBullet": "",
 "MainMenuUI": "",
+"MiniFire": "",
 "Player": "",
+"PlayerDetectionZone": "",
 "PlayerTree": "",
 "WaterBullet": "",
 "WaterTank": ""
@@ -59,6 +95,10 @@ _global_script_class_icons={
 config/name="Miz-Jam-1"
 run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://autoloads/Globals.gd"
 
 [display]
 
@@ -128,6 +168,7 @@ board={
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="bullet"
 2d_physics/layer_5="player_bullet"
+2d_physics/layer_6="player_ship"
 
 [rendering]
 
