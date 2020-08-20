@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/bullets/BaseBullet.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.3799
 
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.0
+
 [node name="BaseBullet" type="KinematicBody2D"]
-collision_layer = 8
+collision_layer = 16
 collision_mask = 5
 script = ExtResource( 1 )
 
@@ -16,4 +19,14 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+
+[node name="BulletArea2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 69
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletArea2D"]
+shape = SubResource( 2 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="area_entered" from="BulletArea2D" to="." method="_on_BulletArea2D_area_entered"]
+[connection signal="body_entered" from="BulletArea2D" to="." method="_on_BulletArea2D_body_entered"]

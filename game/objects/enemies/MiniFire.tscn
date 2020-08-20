@@ -1,23 +1,24 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://objects/enemies/MiniFire.gd" type="Script" id=1]
 [ext_resource path="res://objects/enemies/PlayerDetectionZone.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/art/tile495.png" type="Texture" id=3]
 [ext_resource path="res://objects/common/HealthSystem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=5]
+[ext_resource path="res://objects/enemies/TreeDetectionZone.tscn" type="PackedScene" id=6]
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
 shader_param/outline_width = 0.2
 shader_param/outline_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 8.0
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 292.11
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "death"
 length = 0.5
 tracks/0/type = "value"
@@ -45,7 +46,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -61,20 +62,20 @@ tracks/0/keys = {
 "values": [ Vector2( 2, 2 ), Vector2( 1.8, 1.8 ) ]
 }
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.864865 )
 colors = PoolColorArray( 1, 0.301961, 0.0588235, 1, 1, 0.698039, 0.0313726, 1 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=8]
 _data = [ Vector2( 0, 0.979545 ), 0.0, -0.0770848, 0, 1, Vector2( 0.707602, 0.925 ), -0.578436, -0.578436, 0, 0, Vector2( 1, 0 ), -3.1635, 0.0, 1, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
-curve = SubResource( 9 )
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=11]
+[sub_resource type="ParticlesMaterial" id=10]
 emission_shape = 2
 emission_box_extents = Vector3( 8, 16, 1 )
 flag_disable_z = true
@@ -84,30 +85,38 @@ initial_velocity = 10.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
-scale_curve = SubResource( 10 )
-color_ramp = SubResource( 8 )
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 
 [node name="MiniFire" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 63
 script = ExtResource( 1 )
 chase_speed = 200.0
+gravity = 500.0
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 0.301961, 0.0588235, 1 )
-material = SubResource( 4 )
+material = SubResource( 1 )
 position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="PlatformDetector" type="RayCast2D" parent="."]
 position = Vector2( 0, -8 )
-shape = SubResource( 1 )
+cast_to = Vector2( 0, 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -12 )
+shape = SubResource( 2 )
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
+
+[node name="TreeDetectionZone" parent="." instance=ExtResource( 6 )]
+priority = 6.0
 
 [node name="IdleTimer" type="Timer" parent="."]
 one_shot = true
@@ -118,15 +127,18 @@ current_health = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/death = SubResource( 5 )
-anims/idle = SubResource( 6 )
+anims/death = SubResource( 4 )
+anims/idle = SubResource( 5 )
 
 [node name="DeathParticles" type="Particles2D" parent="."]
 position = Vector2( 0, -12 )
 amount = 20
 explosiveness = 0.77
 local_coords = false
-process_material = SubResource( 11 )
+process_material = SubResource( 10 )
+
+[node name="BurnTickTimer" type="Timer" parent="."]
+one_shot = true
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="health_zero" from="HealthSystem" to="." method="_on_HealthSystem_health_zero"]
 

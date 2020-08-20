@@ -13,18 +13,23 @@ func Setup(start_position: Vector2, dir: float) -> void:
 
 
 func _physics_process(delta):
-	
 	var collision: KinematicCollision2D = move_and_collide(velocity * delta)
 	if collision:
-		Globals.emit_signal("bullet_hit", self, collision)
+#		Globals.emit_signal("bullet_hit", self, collision)
 		bullet_collided()
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	queue_free()
 
-func _on_BaseBullet_body_entered(body: Node) -> void:
-	print("bull")
-	queue_free()
-
 func bullet_collided() -> void:
 	queue_free()
+
+
+func _on_BulletArea2D_area_entered(area: Area2D) -> void:
+	Globals.emit_signal("bullet_hit", self, area)
+	
+	pass # Replace with function body.
+
+
+func _on_BulletArea2D_body_entered(body: Node) -> void:
+	Globals.emit_signal("bullet_hit", self, body)

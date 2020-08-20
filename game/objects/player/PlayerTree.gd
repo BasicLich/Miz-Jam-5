@@ -30,11 +30,15 @@ var velocity: Vector2 = Vector2.ZERO
 var in_control: bool = true
 var player_within_board_distance = false
 
+var leaf_shots_remaining: int = 0
+var leaf_shots: int = 3
 
 var current_state = PlayerTreeState.MOVE
 
 func _ready() -> void:
 	leaves_shoot_timer.start()
+	leaf_shots_remaining = leaf_shots
+	tree_gun_animation_player.play("shoot")
 	change_state(PlayerTreeState.LANDING)
 
 func TakeControl(control: bool) -> void:
@@ -93,7 +97,7 @@ func move_state(delta: float) -> void:
 	if Input.is_action_just_pressed("board"):
 		change_state(PlayerTreeState.LANDING)
 	
-
+	rotation = move_toward(rotation, direction.angle(), 0.5) 
 
 
 func landing_state(delta: float) -> void:
@@ -165,6 +169,7 @@ func shoot_leaves() -> void:
 	get_parent().add_child(bullet)
 	bullet.scale = Vector2.ONE * 2
 	tree_gun_animation_player.play("shoot")
+
 
 func shoot_water() -> void:
 	

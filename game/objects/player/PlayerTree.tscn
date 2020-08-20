@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/colored_transparent_packed.png" type="Texture" id=1]
 [ext_resource path="res://objects/player/PlayerTree.gd" type="Script" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://objects/bullets/WaterBullet.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/shaders/cutout.shader" type="Shader" id=7]
 [ext_resource path="res://assets/art/Particle01.png" type="Texture" id=8]
+[ext_resource path="res://assets/audio/sounds/player/land_thomp.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=10]
+
+[sub_resource type="ShaderMaterial" id=14]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -42,6 +46,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("TreeGun/Leaves:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 20, 4 )
@@ -63,6 +79,21 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "landed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LandedParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -98,10 +129,28 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 4, 16 )
+extents = Vector2( 4, 32 )
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 64.0
+
+[sub_resource type="Curve" id=12]
+max_value = 2.5
+_data = [ Vector2( 0, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=13]
+curve = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+initial_velocity = 60.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+scale_curve = SubResource( 13 )
+color = Color( 0.541176, 0.298039, 0, 1 )
+hue_variation = 0.06
 
 [node name="PlayerTree" type="KinematicBody2D"]
 rotation = -1.5708
@@ -113,44 +162,158 @@ leaf_bullet = ExtResource( 3 )
 water_bullet_scene = ExtResource( 6 )
 
 [node name="Tree" type="Node2D" parent="."]
+material = SubResource( 14 )
 scale = Vector2( 2, 2 )
 
-[node name="Trunk1" type="Sprite" parent="Tree"]
+[node name="Left" type="Node2D" parent="Tree"]
+position = Vector2( 0, -12 )
+
+[node name="Trunk9" type="Sprite" parent="Tree/Left"]
+modulate = Color( 0.607843, 0.368627, 0.247059, 1 )
+position = Vector2( -24.9057, -0.109248 )
+rotation = -1.5708
+scale = Vector2( 0.811001, 0.811001 )
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 0, 48, 16, 16 )
+
+[node name="Trunk4" type="Sprite" parent="Tree/Left"]
 position = Vector2( -12, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 288, 96, 16, 16 )
 
-[node name="Trunk2" type="Sprite" parent="Tree"]
+[node name="Trunk5" type="Sprite" parent="Tree/Left"]
 rotation = 1.5708
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 304, 96, 16, 16 )
 
-[node name="Trunk3" type="Sprite" parent="Tree"]
+[node name="Trunk6" type="Sprite" parent="Tree/Left"]
 position = Vector2( 12, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 304, 96, 16, 16 )
 
+[node name="Right" type="Node2D" parent="Tree"]
+position = Vector2( 0, 12 )
+
+[node name="Trunk10" type="Sprite" parent="Tree/Right"]
+modulate = Color( 0.607843, 0.368627, 0.247059, 1 )
+position = Vector2( -24.906, 0 )
+rotation = -1.5708
+scale = Vector2( 0.811001, 0.811001 )
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 0, 48, 16, 16 )
+
+[node name="Trunk1" type="Sprite" parent="Tree/Right"]
+position = Vector2( -12, 0 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 288, 96, 16, 16 )
+
+[node name="Trunk2" type="Sprite" parent="Tree/Right"]
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Trunk3" type="Sprite" parent="Tree/Right"]
+position = Vector2( 12, 0 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 304, 96, 16, 16 )
+
+[node name="Middle" type="Node2D" parent="Tree"]
+
+[node name="Trunk7" type="Sprite" parent="Tree/Middle"]
+position = Vector2( -1.75467, 0.204637 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 336, 16, 16, 16 )
+
+[node name="Trunk11" type="Sprite" parent="Tree/Middle"]
+position = Vector2( 14, 5.96046e-07 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 336, 16, 16, 16 )
+
+[node name="Trunk10" type="Sprite" parent="Tree/Middle"]
+position = Vector2( 22, 9.53674e-07 )
+rotation = 1.5708
+scale = Vector2( 0.801128, 0.801128 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 736, 32, 16, 16 )
+
+[node name="Trunk8" type="Sprite" parent="Tree/Middle"]
+modulate = Color( 0.607843, 0.368627, 0.247059, 1 )
+position = Vector2( -9.03856, 0.98019 )
+rotation = 3.14159
+scale = Vector2( 1, 1.35305 )
+z_index = 1
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 320, 96, 16, 16 )
+
+[node name="Trunk9" type="Sprite" parent="Tree/Middle"]
+modulate = Color( 0.607843, 0.368627, 0.247059, 1 )
+position = Vector2( 6.0463, 0.540734 )
+rotation = 3.14159
+scale = Vector2( 1, 1.35305 )
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 320, 96, 16, 16 )
+
+[node name="Trunk8" type="Sprite" parent="Tree"]
+visible = false
+position = Vector2( 12.277, 0.204638 )
+rotation = 1.5708
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 336, 16, 16, 16 )
+
 [node name="Passenger" type="Sprite" parent="Tree"]
-position = Vector2( -11.6922, -18.4079 )
+position = Vector2( 4.46324, -3.81462 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 288, 144, 96, 16 )
 
+[node name="LeavesLeft" type="Sprite" parent="Tree"]
+position = Vector2( 22, -12 )
+rotation = 1.5708
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 3.8147e-06 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
+[node name="LeavesRight" type="Sprite" parent="Tree"]
+position = Vector2( 22, 12 )
+rotation = 1.5708
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 3.8147e-06 )
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 16 )
+
 [node name="TreeGun" type="Node2D" parent="."]
-position = Vector2( 32, 0 )
+position = Vector2( 52, 1.90735e-06 )
 scale = Vector2( 2, 2 )
 
 [node name="Leaves" type="Sprite" parent="TreeGun"]
-position = Vector2( 6, 0 )
+position = Vector2( 8, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 320, 80, 16, 16 )
+region_rect = Rect2( 304, 80, 16, 16 )
 
 [node name="Particles2D" type="Particles2D" parent="TreeGun"]
 visible = false
@@ -177,18 +340,20 @@ script = ExtResource( 5 )
 [node name="WaterLevel" type="ColorRect" parent="WaterTank"]
 modulate = Color( 0, 0.905882, 1, 1 )
 material = SubResource( 4 )
-margin_left = -16.0
-margin_top = -12.0
-margin_right = -8.0
-margin_bottom = -3.0
+margin_left = -18.0
+margin_top = 4.0
+margin_right = -10.0
+margin_bottom = 12.0
+rect_rotation = -90.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="WaterTank" type="Sprite" parent="WaterTank"]
 modulate = Color( 0.74902, 0.47451, 0.345098, 1 )
-position = Vector2( -12, -8 )
-scale = Vector2( 0.8, 0.8 )
+position = Vector2( -13.4162, -0.0450439 )
+rotation = -1.5708
+scale = Vector2( 0.8, 0.888642 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 128, 160, 16, 16 )
@@ -196,16 +361,16 @@ region_rect = Rect2( 128, 160, 16, 16 )
 [node name="PlayerTreeAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
 anims/default = SubResource( 5 )
+anims/landed = SubResource( 10 )
 anims/landing_sequence = SubResource( 6 )
 anims/launch_sequence = SubResource( 7 )
 
 [node name="GroundArea2D" type="Area2D" parent="."]
-visible = false
 monitorable = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundArea2D"]
-position = Vector2( -40, 0 )
+position = Vector2( -44, -3.8147e-06 )
 shape = SubResource( 8 )
 
 [node name="BoardArea2D" type="Area2D" parent="."]
@@ -218,6 +383,7 @@ collision_mask = 2147483650
 shape = SubResource( 9 )
 
 [node name="Light2D" type="Light2D" parent="."]
+visible = false
 light_mask = 7
 position = Vector2( 43.3823, 0.333867 )
 texture = ExtResource( 8 )
@@ -225,6 +391,19 @@ texture_scale = 4.0
 color = Color( 0, 0.52549, 0.145098, 1 )
 energy = 1.44
 shadow_item_cull_mask = 0
+
+[node name="LandingStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="LandedParticles2D" type="Particles2D" parent="."]
+position = Vector2( -42.3177, -1.33635 )
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.88
+local_coords = false
+process_material = SubResource( 11 )
+[connection signal="tree_landed" from="." to="LandingStreamPlayer" method="play"]
 [connection signal="timeout" from="LeavesShootTimer" to="." method="_on_LeavesShootTimer_timeout"]
 [connection signal="timeout" from="WaterRegenTimer" to="." method="_on_WaterRegenTimer_timeout"]
 [connection signal="body_entered" from="GroundArea2D" to="." method="_on_GroundArea2D_body_entered"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+signal spawner_killed
+
 export var spawn_scene: PackedScene
 export var max_spawn_count: int = 3
 
@@ -8,13 +10,20 @@ onready var spawner_seen_by_player: bool = false
 
 var spawned_enemies: Array = []
 
+func _ready() -> void:
+	spawn_timer.start()
+	pass
+
 func _on_VisibilityNotifier2D_screen_entered() -> void:
 	if spawner_seen_by_player == false:
-		spawn_timer.start()
+#		spawn_timer.start()
 		spawner_seen_by_player = true
 
 
 func Spawn() -> void:
+	
+	if spawned_enemies.size() >= max_spawn_count:
+		return
 	
 	var instance: Node2D = spawn_scene.instance()
 	get_parent().add_child(instance)
@@ -34,3 +43,9 @@ func enemy_killed(enemy) -> void:
 		spawn_timer.start()
 	else:
 		print(":/")
+
+
+
+
+func _on_HealthSystem_health_zero() -> void:
+	emit_signal("spawner_killed")

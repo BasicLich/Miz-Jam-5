@@ -1,0 +1,14 @@
+FONTS:
+LCD Solid Font by LCD Solid (https://www.fontspace.com/lcd-solid-font-f11346)
+
+
+MUSIC:
+Mysterious Ambience (song21) (pixelsphere.org) by cynicmusic on opengameart.org
+
+SOUND EFFECTS:
+3 Melee sounds (https://opengameart.org/content/3-melee-sounds)
+3 Heal spells (https://opengameart.org/content/3-heal-spells)
+Different steps on wood, stone, leaves, gravel and mud (https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud)
+bubbles 'pop' (https://opengameart.org/content/bubbles-pop)
+
+Platformer Sounds: Terminal, Interaction, Door, Shots, Bang and Footsteps (https://opengameart.org/content/platformer-sounds-terminal-interaction-door-shots-bang-and-footsteps)

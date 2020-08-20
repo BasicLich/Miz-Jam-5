@@ -1,15 +1,50 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://objects/player/player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://objects/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://objects/common/HealthSystem.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=4]
+[ext_resource path="res://assets/audio/sounds/player/grass_footsteps2.ogg" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 5.65685
+height = 28.2843
+
+[sub_resource type="Animation" id=3]
+resource_name = "attack"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordPivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, -2, 1 ),
+"update": 0,
+"values": [ 0.0, -10.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordPivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 0 ), Vector2( 28, -4 ), Vector2( 16, 0 ) ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 9
 script = ExtResource( 2 )
 max_velocity = Vector2( 400, 1000 )
 jump_force = 800.0
@@ -19,8 +54,7 @@ gravity = 2000.0
 position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
-animation = "move"
-frame = 1
+animation = "idle"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,3 +62,34 @@ position = Vector2( 0, -12 )
 shape = SubResource( 1 )
 
 [node name="HealthSystem" parent="." instance=ExtResource( 3 )]
+
+[node name="SwordPivot" type="Node2D" parent="."]
+position = Vector2( 16, 0 )
+
+[node name="Sword" type="Area2D" parent="SwordPivot"]
+monitorable = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordPivot/Sword"]
+position = Vector2( 9.53674e-07, -16 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 2 )
+
+[node name="SwordSprite" type="Sprite" parent="SwordPivot/Sword"]
+modulate = Color( 0.556863, 0.27451, 0, 1 )
+position = Vector2( -8, 0 )
+scale = Vector2( 1, 2 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( 0, -16 )
+region_enabled = true
+region_rect = Rect2( 320, 96, 16, 16 )
+
+[node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/attack = SubResource( 3 )
+
+[node name="FootstepsStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+pitch_scale = 1.05
+[connection signal="body_entered" from="SwordPivot/Sword" to="." method="_on_Sword_body_entered"]

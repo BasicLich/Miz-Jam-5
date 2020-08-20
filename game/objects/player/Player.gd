@@ -12,6 +12,8 @@ export var gravity: = 3000.0
 
 onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var health_system: HealthSystem = $HealthSystem
+onready var weapon_animation_player: AnimationPlayer = $WeaponAnimationPlayer
+onready var footsteps_stream_player: AudioStreamPlayer = $FootstepsStreamPlayer
 
 var _velocity: = Vector2.ZERO
 var in_control: bool = true
@@ -55,11 +57,20 @@ func move_state(delta: float) -> void:
 #	if abs(_velocity.y) > 0:
 #		animated_sprite.play("jump")
 	if abs(direction.x) > 0:
+		if footsteps_stream_player.playing == false:
+			footsteps_stream_player.play()
 		animated_sprite.play("move")
 		animated_sprite.flip_h = true if direction.x < 0 else false
+		
 	else:
+		if footsteps_stream_player.playing == true:
+			footsteps_stream_player.stop()
 		animated_sprite.play("idle")
-
+	
+	if Input.is_action_just_pressed("shoot_primary"):
+		if weapon_animation_player.is_playing() == false:
+			weapon_animation_player.play("attack")
+	
 
 func onboard_state(delta: float) -> void:
 	pass
@@ -87,3 +98,12 @@ func calculate_move_velocity(linear_velocity: Vector2, direction: Vector2,
 	if is_jump_interrupted:
 		new_velocity.y = 0.0
 	return new_velocity
+
+
+func _on_Sword_body_entered(body: Node) -> void:
+	if body is BaseEnemyFire:
+		print("enemy hit")
+		var enemy: BaseEnemyFire = body as BaseEnemyFire
+		var vector: Vector2 = global_position.direction_to(enemy.global_position)
+		enemy.velocity += Vector2(0, -300)
+		enemy.velocity.x += 500

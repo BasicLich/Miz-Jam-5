@@ -8,6 +8,7 @@ onready var playerTree = $PlayerTree
 onready var player: Player = $Player
 onready var tile_map: TileMap = $TileMap
 onready var camera_follower: CameraFollower = $CameraFollower
+onready var camera_shake: ShakeCamera2D = $CameraFollower/Camera2D
 
 func _ready() -> void:
 	SetupGame()
@@ -18,6 +19,8 @@ func _process(delta: float) -> void:
 
 func SetupGame() -> void:
 	
+	AudioManager.change_music_to(AudioManager.title_music)
+	AudioManager.set_music_bus_volume(0.3)
 	# Connect signals
 	main_menu_ui.connect("play_button_pressed", self, "on_play_button_pressed")
 	Globals.connect("bullet_hit", self, "on_bullet_hit")
@@ -29,6 +32,9 @@ func SetupGame() -> void:
 	camera_follower.SetTarget(player)
 
 func on_play_button_pressed() -> void:
+	
+	
+	
 	get_tree().paused = false
 	main_menu_ui.HideMainMenu()
 	player.TakeControl(true)
@@ -47,6 +53,7 @@ func _on_PlayerTree_tree_landed() -> void:
 	player.TakeControl(true)
 	
 	camera_follower.SetTarget(player)
+	camera_shake.add_trauma(0.3)
 
 func _on_PlayerTree_tree_launched() -> void:
 	player.queue_free()
@@ -56,9 +63,13 @@ func on_bullet_hit(bullet, collision) -> void:
 	if bullet is LeafBullet:
 		var tree_instance: BaseTree = tree.instance() as BaseTree
 		add_child(tree_instance)
-		tree_instance.global_position = collision.position
-		print(collision.collider)
+		tree_instance.global_position = collision.global_position
+#		print(collision.name)
 	if bullet is WaterBullet:
-		if collision.collider is MiniFire:
-			var enemy: MiniFire = collision.collider
+		var col = collision
+		if col is MiniFire:
+			var enemy: MiniFire = col
 			enemy.health_system.Damage(1)
+		if col is BaseTree:
+			col.Extinguish()
+			
