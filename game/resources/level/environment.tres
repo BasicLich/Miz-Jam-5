@@ -2,5 +2,8 @@
 
 [resource]
 glow_enabled = true
+glow_levels/2 = true
+glow_levels/4 = true
 glow_blend_mode = 0
+glow_hdr_threshold = 1.02
 glow_bicubic_upscale = true

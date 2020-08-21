@@ -7,9 +7,10 @@ export var sound_effect_scene: PackedScene
 #
 onready var music_player: AudioStreamPlayer = $MusicPlayer
 onready var tween: Tween = $Tween
-onready var animation_player = $AnimationPlayer
+#onready var animation_player = $AnimationPlayer
 
 const game_music = preload("res://assets/audio/music/song21.ogg")
+const game_one_music = preload("res://assets/audio/music/andrewkn_horizon.wav")
 const title_music = preload("res://assets/audio/music/song21.ogg")
 #const title_music = preload("res://Assets/audio/Juhani Junkala [Retro Game Music Pack] Title Screen.ogg")
 

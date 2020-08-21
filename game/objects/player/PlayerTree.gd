@@ -6,8 +6,10 @@ enum PlayerTreeState {MOVE, LANDING, LANDED, READY_TO_LAUNCH, LAUNCHING, LAUNCHE
 signal tree_landed
 signal tree_launched
 
+
 export var speed = 200
 export var max_water_level = 100
+
 
 export var leaf_bullet: PackedScene
 export var water_bullet_scene: PackedScene
@@ -97,7 +99,7 @@ func move_state(delta: float) -> void:
 	if Input.is_action_just_pressed("board"):
 		change_state(PlayerTreeState.LANDING)
 	
-	rotation = move_toward(rotation, direction.angle(), 0.5) 
+#	rotation = move_toward(rotation, direction.angle(), 0.5) 
 
 
 func landing_state(delta: float) -> void:

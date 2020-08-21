@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/387924__aegersum__fire-massive-no-cracking.wav-833633695d39bad57e14727a019863d6.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/fire/387924__aegersum__fire-massive-no-cracking.wav"
+dest_files=[ "res://.import/387924__aegersum__fire-massive-no-cracking.wav-833633695d39bad57e14727a019863d6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

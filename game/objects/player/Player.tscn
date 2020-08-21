@@ -1,46 +1,85 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/player/player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://objects/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://objects/common/HealthSystem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=4]
 [ext_resource path="res://assets/audio/sounds/player/grass_footsteps2.ogg" type="AudioStream" id=5]
+[ext_resource path="res://objects/enemies/TreeDetectionZone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/common/FireIndicatorLabel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/audio/sounds/player/melee sound.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 5.65685
-height = 28.2843
+height = 52.6863
 
 [sub_resource type="Animation" id=3]
 resource_name = "attack"
 length = 0.3
-step = 0.05
+step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("SwordPivot:rotation_degrees")
+tracks/0/path = NodePath("SwordCenter/SwordPivot:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3 ),
-"transitions": PoolRealArray( 1, -2, 1 ),
+"times": PoolRealArray( 0, 0.08, 0.3 ),
+"transitions": PoolRealArray( 0.5, -2, 1 ),
 "update": 0,
 "values": [ 0.0, -10.0, 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("SwordPivot:position")
+tracks/1/path = NodePath("SwordCenter/SwordPivot:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.08, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 16, 0 ), Vector2( 28, -4 ), Vector2( 16, 0 ) ]
 }
+
+[sub_resource type="Animation" id=4]
+resource_name = "attack2"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("SwordCenter/SwordPivot:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.24, 0.3 ),
+"transitions": PoolRealArray( 0.5, -2, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0, -16.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordCenter/SwordPivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.24, 0.3 ),
+"transitions": PoolRealArray( 0.5, 1, -2, 1 ),
+"update": 0,
+"values": [ Vector2( 16, 0 ), Vector2( 14, -4 ), Vector2( 16, 0 ), Vector2( 16, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "attack2d"
+length = 0.3
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 24.3311
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -49,6 +88,7 @@ script = ExtResource( 2 )
 max_velocity = Vector2( 400, 1000 )
 jump_force = 800.0
 gravity = 2000.0
+max_burn_level = 16
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
@@ -63,23 +103,24 @@ shape = SubResource( 1 )
 
 [node name="HealthSystem" parent="." instance=ExtResource( 3 )]
 
-[node name="SwordPivot" type="Node2D" parent="."]
+[node name="SwordCenter" type="Node2D" parent="."]
+
+[node name="SwordPivot" type="Node2D" parent="SwordCenter"]
 position = Vector2( 16, 0 )
 
-[node name="Sword" type="Area2D" parent="SwordPivot"]
+[node name="Sword" type="Area2D" parent="SwordCenter/SwordPivot"]
 monitorable = false
 collision_layer = 0
-collision_mask = 4
+collision_mask = 68
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordPivot/Sword"]
-position = Vector2( 9.53674e-07, -16 )
-scale = Vector2( 1, 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordCenter/SwordPivot/Sword"]
+position = Vector2( 9.53674e-07, -32 )
 shape = SubResource( 2 )
 
-[node name="SwordSprite" type="Sprite" parent="SwordPivot/Sword"]
+[node name="SwordSprite" type="Sprite" parent="SwordCenter/SwordPivot/Sword"]
 modulate = Color( 0.556863, 0.27451, 0, 1 )
 position = Vector2( -8, 0 )
-scale = Vector2( 1, 2 )
+scale = Vector2( 1, 4 )
 texture = ExtResource( 4 )
 centered = false
 offset = Vector2( 0, -16 )
@@ -88,8 +129,34 @@ region_rect = Rect2( 320, 96, 16, 16 )
 
 [node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack = SubResource( 3 )
+anims/attack2 = SubResource( 4 )
+anims/attack2d = SubResource( 5 )
 
 [node name="FootstepsStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 pitch_scale = 1.05
-[connection signal="body_entered" from="SwordPivot/Sword" to="." method="_on_Sword_body_entered"]
+bus = "SoundEffects"
+
+[node name="WeaponStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+bus = "SoundEffects"
+
+[node name="CoolOffTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="FireIndicatorLabel" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -40 )
+fire_indicator_color = Color( 1, 0.211765, 0, 1 )
+
+[node name="TreeDetectionZone" parent="." instance=ExtResource( 6 )]
+
+[node name="CollisionShape2D" parent="TreeDetectionZone" index="0"]
+position = Vector2( 0, -24 )
+shape = SubResource( 6 )
+[connection signal="body_entered" from="SwordCenter/SwordPivot/Sword" to="." method="_on_Sword_body_entered"]
+[connection signal="animation_finished" from="WeaponAnimationPlayer" to="." method="_on_WeaponAnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="WeaponAnimationPlayer" to="." method="_on_WeaponAnimationPlayer_animation_started"]
+[connection signal="timeout" from="CoolOffTimer" to="." method="_on_CoolOffTimer_timeout"]
+
+[editable path="TreeDetectionZone"]

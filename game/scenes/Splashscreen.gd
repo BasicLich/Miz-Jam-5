@@ -17,6 +17,6 @@ func _ready() -> void:
 
 func SplashComplete() -> void:
 	
-	get_tree().change_scene_to(game_scene)
+	SceneManager.change_scene_to(SceneManager.Scenes.GAME)
 	
 	

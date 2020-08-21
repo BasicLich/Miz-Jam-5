@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/yewbic_ambience06.ogg-3ff6197e9441d83e30858300c54a09f8.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ambience/yewbic_ambience06.ogg"
+dest_files=[ "res://.import/yewbic_ambience06.ogg-3ff6197e9441d83e30858300c54a09f8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

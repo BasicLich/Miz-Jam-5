@@ -7,9 +7,12 @@ enum TreeStates {ALIVE, BURNING, BURNED}
 
 onready var health_system: HealthSystem = $HealthSystem
 onready var animation_player: AnimationPlayer = $AnimationPlayer
-onready var particles: Particles2D = $Particles2D
+onready var particles: Particles2D = $FireParticles2D
+onready var green_particles: Particles2D = $GreenParticles2D
 
 onready var burn_timer: Timer = $BurnTimer
+onready var cooldown_timer: Timer = $CoolDownTimer
+onready var player_detection_zone = $PlayerDetectionZone
 
 var is_burning = false
 var burn_level = 0
@@ -38,10 +41,21 @@ func Burn(power: int) -> void:
 	is_burning = true
 	current_state = TreeStates.BURNING
 	burn_timer.start()
+#	green_particles.hide()
 
 func Extinguish() -> void:
-	burn_timer.stop()
-	animation_player.play("extinguish")
+	
+	if is_burning == false:
+		return
+	
+	burn_level -= 1
+	
+	if burn_level <= 0:
+		burn_level = 0
+		burn_timer.stop()
+		animation_player.play("extinguish")
+		is_burning = false
+#		green_particles.show()
 
 func _on_BurnTimer_timeout() -> void:
 	health_system.Damage(burn_level, true)
@@ -60,3 +74,14 @@ func _on_HealthSystem_health_zero() -> void:
 	current_state = TreeStates.BURNED
 	emit_signal("burned", self)
 	Globals.trees_burned += 1
+
+
+func _on_CoolDownTimer_timeout() -> void:
+	
+	if player_detection_zone.CanSeePlayer() and not current_state in [TreeStates.BURNED, TreeStates.BURNING]:
+		player_detection_zone.player.RemoveFire()
+	
+
+
+func _on_PlayerDetectionZone_body_entered(body: Node) -> void:
+	cooldown_timer.start()

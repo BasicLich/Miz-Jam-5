@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/andrewkn_horizon.wav-8b84d1d86dbe0aae7b2872e30d910c06.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/andrewkn_horizon.wav"
+dest_files=[ "res://.import/andrewkn_horizon.wav-8b84d1d86dbe0aae7b2872e30d910c06.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -11,16 +11,15 @@
 [ext_resource path="res://assets/audio/sounds/player/land_thomp.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=10]
 
-[sub_resource type="ShaderMaterial" id=14]
+[sub_resource type="ShaderMaterial" id=1]
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=2]
 flag_disable_z = true
 gravity = Vector3( 0, 98, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="Animation" id=2]
-resource_name = "shoot"
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("TreeGun/Leaves:visible")
@@ -59,15 +58,14 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 20, 4 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 48, 32 )
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 7 )
 shader_param/cut_off = 0.0
 
-[sub_resource type="Animation" id=5]
-resource_name = "default"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
@@ -81,7 +79,7 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "landed"
 tracks/0/type = "value"
 tracks/0/path = NodePath("LandedParticles2D:emitting")
@@ -96,8 +94,7 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "landing_sequence"
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -112,8 +109,7 @@ tracks/0/keys = {
 "values": [ 0.0, -90.0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "launch_sequence"
+[sub_resource type="Animation" id=9]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -128,10 +124,10 @@ tracks/0/keys = {
 "values": [ -90.0, 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 4, 32 )
 
-[sub_resource type="CircleShape2D" id=9]
+[sub_resource type="CircleShape2D" id=11]
 radius = 64.0
 
 [sub_resource type="Curve" id=12]
@@ -141,7 +137,7 @@ _data = [ Vector2( 0, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 [sub_resource type="CurveTexture" id=13]
 curve = SubResource( 12 )
 
-[sub_resource type="ParticlesMaterial" id=11]
+[sub_resource type="ParticlesMaterial" id=14]
 flag_disable_z = true
 gravity = Vector3( 0, 98, 0 )
 initial_velocity = 60.0
@@ -153,7 +149,6 @@ color = Color( 0.541176, 0.298039, 0, 1 )
 hue_variation = 0.06
 
 [node name="PlayerTree" type="KinematicBody2D"]
-rotation = -1.5708
 collision_layer = 2
 collision_mask = 2147483661
 script = ExtResource( 2 )
@@ -162,7 +157,7 @@ leaf_bullet = ExtResource( 3 )
 water_bullet_scene = ExtResource( 6 )
 
 [node name="Tree" type="Node2D" parent="."]
-material = SubResource( 14 )
+material = SubResource( 1 )
 scale = Vector2( 2, 2 )
 
 [node name="Left" type="Node2D" parent="Tree"]
@@ -309,22 +304,24 @@ position = Vector2( 52, 1.90735e-06 )
 scale = Vector2( 2, 2 )
 
 [node name="Leaves" type="Sprite" parent="TreeGun"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 8, 0 )
 rotation = 1.5708
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 304, 80, 16, 16 )
 
 [node name="Particles2D" type="Particles2D" parent="TreeGun"]
 visible = false
-process_material = SubResource( 1 )
+process_material = SubResource( 2 )
 
 [node name="TreeGun_AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/shoot = SubResource( 2 )
+anims/shoot = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -20, 0 )
-shape = SubResource( 3 )
+position = Vector2( 4, 0 )
+shape = SubResource( 4 )
 
 [node name="LeavesShootTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -339,7 +336,7 @@ script = ExtResource( 5 )
 
 [node name="WaterLevel" type="ColorRect" parent="WaterTank"]
 modulate = Color( 0, 0.905882, 1, 1 )
-material = SubResource( 4 )
+material = SubResource( 5 )
 margin_left = -18.0
 margin_top = 4.0
 margin_right = -10.0
@@ -360,18 +357,18 @@ region_rect = Rect2( 128, 160, 16, 16 )
 
 [node name="PlayerTreeAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "default"
-anims/default = SubResource( 5 )
-anims/landed = SubResource( 10 )
-anims/landing_sequence = SubResource( 6 )
-anims/launch_sequence = SubResource( 7 )
+anims/default = SubResource( 6 )
+anims/landed = SubResource( 7 )
+anims/landing_sequence = SubResource( 8 )
+anims/launch_sequence = SubResource( 9 )
 
 [node name="GroundArea2D" type="Area2D" parent="."]
 monitorable = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundArea2D"]
-position = Vector2( -44, -3.8147e-06 )
-shape = SubResource( 8 )
+position = Vector2( -52, -0.00018692 )
+shape = SubResource( 10 )
 
 [node name="BoardArea2D" type="Area2D" parent="."]
 visible = false
@@ -380,7 +377,7 @@ collision_layer = 0
 collision_mask = 2147483650
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BoardArea2D"]
-shape = SubResource( 9 )
+shape = SubResource( 11 )
 
 [node name="Light2D" type="Light2D" parent="."]
 visible = false
@@ -397,13 +394,11 @@ stream = ExtResource( 9 )
 
 [node name="LandedParticles2D" type="Particles2D" parent="."]
 position = Vector2( -42.3177, -1.33635 )
-emitting = false
 amount = 20
 one_shot = true
 explosiveness = 0.88
 local_coords = false
-process_material = SubResource( 11 )
-[connection signal="tree_landed" from="." to="LandingStreamPlayer" method="play"]
+process_material = SubResource( 14 )
 [connection signal="timeout" from="LeavesShootTimer" to="." method="_on_LeavesShootTimer_timeout"]
 [connection signal="timeout" from="WaterRegenTimer" to="." method="_on_WaterRegenTimer_timeout"]
 [connection signal="body_entered" from="GroundArea2D" to="." method="_on_GroundArea2D_body_entered"]

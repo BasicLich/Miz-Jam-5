@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/enemies/MiniFire.gd" type="Script" id=1]
 [ext_resource path="res://objects/enemies/PlayerDetectionZone.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://objects/common/HealthSystem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=5]
 [ext_resource path="res://objects/enemies/TreeDetectionZone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/enemies/IgniteZone.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
@@ -45,6 +46,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AliveParticles:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "idle"
@@ -61,6 +74,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 2, 2 ), Vector2( 1.8, 1.8 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("DeathParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AliveParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.864865 )
@@ -70,7 +107,7 @@ colors = PoolColorArray( 1, 0.301961, 0.0588235, 1, 1, 0.698039, 0.0313726, 1 )
 gradient = SubResource( 6 )
 
 [sub_resource type="Curve" id=8]
-_data = [ Vector2( 0, 0.979545 ), 0.0, -0.0770848, 0, 1, Vector2( 0.707602, 0.925 ), -0.578436, -0.578436, 0, 0, Vector2( 1, 0 ), -3.1635, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 1.61567, 0, 1, Vector2( 0.339713, 0.548864 ), -0.578436, -0.578436, 0, 0, Vector2( 1, 0 ), -0.83125, 0.0, 1, 0 ]
 
 [sub_resource type="CurveTexture" id=9]
 curve = SubResource( 8 )
@@ -85,6 +122,20 @@ initial_velocity = 10.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 1
+emission_sphere_radius = 4.0
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 16.0
+initial_velocity_random = 0.77
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
 scale_curve = SubResource( 9 )
 color_ramp = SubResource( 7 )
 
@@ -111,11 +162,13 @@ position = Vector2( 0, -12 )
 shape = SubResource( 2 )
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 shape = SubResource( 3 )
 
 [node name="TreeDetectionZone" parent="." instance=ExtResource( 6 )]
+visible = false
 priority = 6.0
 
 [node name="IdleTimer" type="Timer" parent="."]
@@ -132,13 +185,26 @@ anims/idle = SubResource( 5 )
 
 [node name="DeathParticles" type="Particles2D" parent="."]
 position = Vector2( 0, -12 )
+emitting = false
 amount = 20
 explosiveness = 0.77
 local_coords = false
 process_material = SubResource( 10 )
 
+[node name="AliveParticles" type="Particles2D" parent="."]
+position = Vector2( 0, -12 )
+z_index = -1
+lifetime = 2.0
+local_coords = false
+process_material = SubResource( 11 )
+
 [node name="BurnTickTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="IgniteZone" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -12 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_IdleTimer_timeout"]
 [connection signal="health_zero" from="HealthSystem" to="." method="_on_HealthSystem_health_zero"]
 

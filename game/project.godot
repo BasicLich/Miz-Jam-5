@@ -29,6 +29,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/camera/CameraFollower.gd"
 }, {
+"base": "Node2D",
+"class": "FireIndicatorLabel",
+"language": "GDScript",
+"path": "res://objects/common/FireIndicatorLabel.gd"
+}, {
+"base": "Node2D",
+"class": "FireSpawner",
+"language": "GDScript",
+"path": "res://objects/enemies/FireSpawner.gd"
+}, {
 "base": "CanvasLayer",
 "class": "GameUI",
 "language": "GDScript",
@@ -38,6 +48,11 @@ _global_script_classes=[ {
 "class": "HealthSystem",
 "language": "GDScript",
 "path": "res://objects/common/HealthSystem.gd"
+}, {
+"base": "Area2D",
+"class": "IgniteZone",
+"language": "GDScript",
+"path": "res://objects/enemies/IgniteZone.gd"
 }, {
 "base": "BaseBullet",
 "class": "LeafBullet",
@@ -94,8 +109,11 @@ _global_script_class_icons={
 "BaseEnemyFire": "",
 "BaseTree": "",
 "CameraFollower": "",
+"FireIndicatorLabel": "",
+"FireSpawner": "",
 "GameUI": "",
 "HealthSystem": "",
+"IgniteZone": "",
 "LeafBullet": "",
 "MainMenuUI": "",
 "MiniFire": "",
@@ -118,6 +136,7 @@ config/icon="res://icon.png"
 
 Globals="*res://autoloads/Globals.gd"
 AudioManager="*res://autoloads/AudioManager.tscn"
+SceneManager="*res://autoloads/SceneManager.tscn"
 
 [display]
 
@@ -192,4 +211,5 @@ board={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

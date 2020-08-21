@@ -54,12 +54,12 @@ shader_param/cut_off = 0.0
 shader_param/rotation_degrees = 143.226
 shader_param/gradient = SubResource( 3 )
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=5]
 offsets = PoolRealArray( 0.0337838, 0.202703, 0.777027, 0.993243 )
 colors = PoolColorArray( 0.0509804, 0.0823529, 0.0392157, 0, 0.588235, 0.894118, 0.458824, 1, 0.54902, 0.882353, 0.407843, 1, 0.996078, 1, 0.992157, 0 )
 
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
 
 [sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 2
@@ -71,7 +71,7 @@ gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
-color_ramp = SubResource( 13 )
+color_ramp = SubResource( 6 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -355,6 +355,7 @@ region_rect = Rect2( 64, 32, 16, 16 )
 position = Vector2( -107.15, -42.8598 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 8 )
+frame = 1
 playing = true
 
 [node name="Sprite" type="Sprite" parent="TreeGuy/Guy"]
@@ -364,6 +365,18 @@ scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 336, 112, 16, 16 )
+
+[node name="Guy2" type="Node2D" parent="TreeGuy"]
+position = Vector2( -169.548, -4.75803 )
+scale = Vector2( 0.6, 0.6 )
+
+[node name="Sprite" type="Sprite" parent="TreeGuy/Guy2"]
+modulate = Color( 1, 0.878431, 0.0941176, 1 )
+position = Vector2( 11.0806, -34.9646 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 400, 112, 16, 16 )
 
 [node name="Panel" type="Panel" parent="TreeGuy"]
 margin_left = -82.4111

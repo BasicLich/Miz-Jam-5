@@ -14,7 +14,6 @@ onready var platform_detector: RayCast2D = $PlatformDetector
 onready var player_detection_zone: PlayerDetectionZone = $PlayerDetectionZone
 onready var tree_detection_zone: TreeDetectionZone = $TreeDetectionZone
 onready var idle_timer: Timer = $IdleTimer
-onready var health_system: HealthSystem = $HealthSystem
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 onready var burn_tick_timer: Timer = $BurnTickTimer
