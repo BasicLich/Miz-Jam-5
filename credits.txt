@@ -9,19 +9,24 @@ Horizon | Andrewkn | https://freesound.org/people/Andrewkn/sounds/509740/
 
 SOUND EFFECTS:
 3 Melee sounds (https://opengameart.org/content/3-melee-sounds)
-3 Heal spells (https://opengameart.org/content/3-heal-spells)
+
 
 ambience06.wav yewbic https://freesound.org/people/yewbic/sounds/66015/
-
 Aegersum Fire -massive no cracking.wav https://freesound.org/people/Aegersum/sounds/387924/?page=1#comments
-
-Owl Hoot Breviceps https://freesound.org/people/Breviceps/sounds/465697/
-
+lil boost.wav | symphoid | https://freesound.org/people/symphoid/sounds/157419/
+Godowan | bubble1.wav | https://freesound.org/people/Godowan/sounds/235264/
 Yudena Duck_byMondfisch89.ogg https://freesound.org/people/Yudena/sounds/377563/
 
 
+
+
+NOT USED
+Blop around 70 Bb3 Clair f.wavbeskhu | https://freesound.org/people/beskhu/sounds/276367/
+Owl Hoot Breviceps https://freesound.org/people/Breviceps/sounds/465697/
+
 Magic Speel - Sleeping spell 1.wav | OGsoundFX | https://freesound.org/people/OGsoundFX/sounds/423144/
 Earthquake 1 - Big.wav | OGsoundFX | https://freesound.org/people/OGsoundFX/sounds/423120/
+3 Heal spells (https://opengameart.org/content/3-heal-spells)
 
 -------------------------
 

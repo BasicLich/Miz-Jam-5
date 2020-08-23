@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/beskhu__blop-around-70-bb3-clair-f.wav-86a35dd048e1bb63a3a14b67de2d42d3.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/player/beskhu__blop-around-70-bb3-clair-f.wav"
+dest_files=[ "res://.import/beskhu__blop-around-70-bb3-clair-f.wav-86a35dd048e1bb63a3a14b67de2d42d3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

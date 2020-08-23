@@ -21,4 +21,7 @@ func _on_BulletArea2D_area_entered(area: Area2D) -> void:
 	if area is BaseTree:
 		area.Extinguish()
 	
+	if area is FireSpawner:
+		area.health_system.Damage(damage)
+	
 	queue_free()

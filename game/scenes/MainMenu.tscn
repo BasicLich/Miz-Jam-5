@@ -1,0 +1,768 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://scenes/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://resources/interface/title_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/interface/game_theme.tres" type="Theme" id=3]
+[ext_resource path="res://objects/interface/MainMenuUI.gd" type="Script" id=4]
+[ext_resource path="res://resources/interface/menu_button.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/tile556.png" type="Texture" id=7]
+[ext_resource path="res://resources/interface/subtitle_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://objects/interface/ToggleButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resources/interface/default_font.tres" type="DynamicFont" id=10]
+
+[sub_resource type="Animation" id=1]
+resource_name = "default"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "default"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( -2, -2 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CreditsScreen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CreditsScreen:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PauseScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("OptionsScreen:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( -2, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CreditsScreen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PauseScreen:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("OptionsScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "show_options_screen"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CreditsScreen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PauseScreen:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("OptionsScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("OptionsScreen:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CreditsScreen:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PauseScreen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PauseScreen:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("OptionsScreen:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.188172, 0.397849, 1 )
+colors = PoolColorArray( 1, 0.00392157, 0.00392157, 0, 1, 0, 0, 1, 1, 0.65625, 0, 1, 0.894118, 0.588235, 0, 0 )
+
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+
+[sub_resource type="Curve" id=11]
+max_value = 2.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.162679, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+emission_shape = 2
+emission_box_extents = Vector3( 600, 400, 1 )
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 12 )
+color_ramp = SubResource( 10 )
+
+[sub_resource type="Animation" id=14]
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.5, 2 ),
+"update": 0,
+"values": [ Vector2( 5, 5 ), Vector2( 7, 7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Player:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( -2, 1, 1, -2 ),
+"update": 0,
+"values": [ 0.0, 10.0, 0.0, -10.0 ]
+}
+
+[node name="MainMenu" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuUI" type="CanvasLayer" parent="."]
+pause_mode = 2
+script = ExtResource( 4 )
+
+[node name="MainScreen" type="Control" parent="MainMenuUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenuUI/MainScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/MainScreen/CenterContainer"]
+margin_left = 459.0
+margin_top = 239.0
+margin_right = 907.0
+margin_bottom = 528.0
+custom_constants/separation = 16
+
+[node name="RichTextLabel" type="Label" parent="MainMenuUI/MainScreen/CenterContainer/VBoxContainer"]
+margin_right = 531.0
+margin_bottom = 97.0
+rect_pivot_offset = Vector2( 238, 58 )
+custom_fonts/font = ExtResource( 2 )
+text = "BAD FIRE"
+align = 1
+
+[node name="PlayButton" type="Button" parent="MainMenuUI/MainScreen/CenterContainer/VBoxContainer"]
+margin_left = 225.0
+margin_top = 113.0
+margin_right = 305.0
+margin_bottom = 146.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "PLAY"
+
+[node name="OptionsButton" type="Button" parent="MainMenuUI/MainScreen/CenterContainer/VBoxContainer"]
+margin_left = 195.0
+margin_top = 162.0
+margin_right = 335.0
+margin_bottom = 195.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "OPTIONS"
+
+[node name="CreditsButton" type="Button" parent="MainMenuUI/MainScreen/CenterContainer/VBoxContainer"]
+margin_left = 195.0
+margin_top = 211.0
+margin_right = 335.0
+margin_bottom = 244.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "CREDITS"
+
+[node name="QuitButton" type="Button" parent="MainMenuUI/MainScreen/CenterContainer/VBoxContainer"]
+margin_left = 225.0
+margin_top = 260.0
+margin_right = 305.0
+margin_bottom = 293.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "QUIT"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI/MainScreen"]
+autoplay = "default"
+anims/default = SubResource( 1 )
+
+[node name="OptionsScreen" type="Control" parent="MainMenuUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenuUI/OptionsScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/OptionsScreen/CenterContainer"]
+margin_left = 383.0
+margin_top = 241.0
+margin_right = 983.0
+margin_bottom = 527.0
+rect_min_size = Vector2( 600, 0 )
+custom_constants/separation = 16
+
+[node name="RichTextLabel" type="Label" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 65.0
+rect_pivot_offset = Vector2( 238, 58 )
+custom_fonts/font = ExtResource( 8 )
+text = "Options"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_top = 81.0
+margin_right = 600.0
+margin_bottom = 106.0
+
+[node name="MasterVolumeLabel" type="Label" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 298.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "Master volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 302.0
+margin_right = 600.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_top = 122.0
+margin_right = 600.0
+margin_bottom = 147.0
+
+[node name="Label" type="Label" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 298.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "Music  volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 302.0
+margin_right = 600.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_top = 163.0
+margin_right = 600.0
+margin_bottom = 188.0
+
+[node name="Label" type="Label" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 298.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+text = "Sound effect volume"
+
+[node name="SoundEffectVolumeSlider" type="HSlider" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 302.0
+margin_right = 600.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_top = 204.0
+margin_right = 600.0
+margin_bottom = 237.0
+
+[node name="Label" type="Label" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer4"]
+margin_top = 4.0
+margin_right = 564.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+text = "Fullscreen"
+
+[node name="FullscreenToggle" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer4" instance=ExtResource( 9 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 568.0
+margin_top = 0.0
+margin_right = 600.0
+margin_bottom = 33.0
+
+[node name="BackButton2" type="Button" parent="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer"]
+margin_left = 220.0
+margin_top = 253.0
+margin_right = 380.0
+margin_bottom = 286.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "- BACK -"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI/OptionsScreen"]
+autoplay = "default"
+anims/default = SubResource( 2 )
+
+[node name="CreditsScreen" type="Control" parent="MainMenuUI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenuUI/CreditsScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/CreditsScreen/CenterContainer"]
+margin_left = 272.0
+margin_top = 80.0
+margin_right = 1092.0
+margin_bottom = 687.0
+rect_min_size = Vector2( 820, 0 )
+
+[node name="RichTextLabel" type="Label" parent="MainMenuUI/CreditsScreen/CenterContainer/VBoxContainer"]
+margin_right = 820.0
+margin_bottom = 65.0
+rect_pivot_offset = Vector2( 238, 58 )
+custom_fonts/font = ExtResource( 8 )
+text = "Credits"
+align = 1
+
+[node name="RichTextLabel2" type="Label" parent="MainMenuUI/CreditsScreen/CenterContainer/VBoxContainer"]
+margin_top = 69.0
+margin_right = 820.0
+margin_bottom = 570.0
+rect_pivot_offset = Vector2( 238, 58 )
+custom_fonts/font = ExtResource( 10 )
+text = "Made during the Miz Jam 1 (48 non consectutive). 
+Visit me at www.edvin.space
+
+MUSIC:
+Mysterious Ambience | pixelsphere.org
+Road In The Forest | Andrewkn | freesound.org
+Horizon | Andrewkn | freesound.org
+
+SOUND EFFECTS:
+3 Melee sounds | remaxim | opengameart.org
+ambience06 | yewbic | freesound.org
+Fire -massive no cracking | Aegersum |  freesound.org
+lil boost | symphoid | freesound.org
+bubble1 | Godowan | freesound.org
+Duck_byMondfisch89 | Yudena | freesound.org
+
+FONT:
+LCD Solid Font | LCD Solid | fontspace.com"
+autowrap = true
+
+[node name="BackButton" type="Button" parent="MainMenuUI/CreditsScreen/CenterContainer/VBoxContainer"]
+margin_left = 330.0
+margin_top = 574.0
+margin_right = 490.0
+margin_bottom = 607.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 5 )
+text = "- BACK -"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI/CreditsScreen"]
+autoplay = "default"
+anims/default = SubResource( 3 )
+
+[node name="PauseScreen" type="Control" parent="MainMenuUI"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenuUI/PauseScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/PauseScreen/CenterContainer"]
+margin_left = 515.0
+margin_top = 323.0
+margin_right = 851.0
+margin_bottom = 445.0
+
+[node name="RichTextLabel" type="Label" parent="MainMenuUI/PauseScreen/CenterContainer/VBoxContainer"]
+margin_right = 354.0
+margin_bottom = 97.0
+rect_pivot_offset = Vector2( 238, 58 )
+custom_fonts/font = ExtResource( 2 )
+text = "PAUSED"
+
+[node name="ResumeButton" type="Button" parent="MainMenuUI/PauseScreen/CenterContainer/VBoxContainer"]
+margin_left = 132.0
+margin_top = 101.0
+margin_right = 222.0
+margin_bottom = 126.0
+focus_mode = 0
+size_flags_horizontal = 4
+enabled_focus_mode = 0
+text = "RESUME"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI/PauseScreen"]
+autoplay = "default"
+anims/default = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI"]
+anims/show_credits_screen = SubResource( 5 )
+anims/show_main_screen = SubResource( 6 )
+anims/show_options_screen = SubResource( 7 )
+anims/show_pause_screen = SubResource( 8 )
+
+[node name="Player" type="Sprite" parent="."]
+modulate = Color( 0, 0.666667, 0.960784, 1 )
+position = Vector2( 136, 660 )
+rotation = 0.10472
+scale = Vector2( 5.49909, 5.49909 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 288, 112, 16, 16 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 924, 376 )
+z_index = 18
+z_as_relative = false
+amount = 20
+lifetime = 5.0
+process_material = SubResource( 13 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "default"
+anims/default = SubResource( 14 )
+[connection signal="play_button_pressed" from="MainMenuUI" to="." method="_on_MainMenuUI_play_button_pressed"]
+[connection signal="pressed" from="MainMenuUI/MainScreen/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="value_changed" from="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer/MasterVolumeSlider" to="MainMenuUI" method="_on_MasterVolumeSlider_value_changed"]
+[connection signal="value_changed" from="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer2/MusicVolumeSlider" to="MainMenuUI" method="_on_MusicVolumeSlider_value_changed"]
+[connection signal="value_changed" from="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer3/SoundEffectVolumeSlider" to="MainMenuUI" method="_on_SoundEffectVolumeSlider_value_changed"]
+[connection signal="toggled" from="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/HBoxContainer4/FullscreenToggle" to="MainMenuUI" method="_on_FullscreenToggle_toggled"]
+[connection signal="pressed" from="MainMenuUI/OptionsScreen/CenterContainer/VBoxContainer/BackButton2" to="MainMenuUI" method="_on_BackButton_pressed"]
+[connection signal="pressed" from="MainMenuUI/CreditsScreen/CenterContainer/VBoxContainer/BackButton" to="MainMenuUI" method="_on_BackButton_pressed"]

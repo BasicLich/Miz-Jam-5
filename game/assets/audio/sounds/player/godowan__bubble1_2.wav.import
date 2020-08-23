@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/godowan__bubble1_2.wav-79ad11eed5bbf9c3f47c1af39e2f4cf6.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/player/godowan__bubble1_2.wav"
+dest_files=[ "res://.import/godowan__bubble1_2.wav-79ad11eed5bbf9c3f47c1af39e2f4cf6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

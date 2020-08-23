@@ -226,9 +226,16 @@ tracks/3/keys = {
 pause_mode = 2
 script = ExtResource( 3 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MainScreen" type="Control" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -242,30 +249,30 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainScreen/CenterContainer"]
 margin_left = 358.0
-margin_top = 300.0
+margin_top = 306.0
 margin_right = 1007.0
-margin_bottom = 467.0
+margin_bottom = 461.0
 
 [node name="RichTextLabel" type="Label" parent="MainScreen/CenterContainer/VBoxContainer"]
-margin_right = 477.0
-margin_bottom = 116.0
+margin_right = 649.0
+margin_bottom = 97.0
 rect_pivot_offset = Vector2( 238, 58 )
 custom_fonts/font = ExtResource( 2 )
 text = "Tree surfer"
 
 [node name="PlayButton" type="Button" parent="MainScreen/CenterContainer/VBoxContainer"]
-margin_left = 203.0
-margin_top = 120.0
-margin_right = 273.0
-margin_bottom = 156.0
+margin_left = 294.0
+margin_top = 101.0
+margin_right = 354.0
+margin_bottom = 126.0
 size_flags_horizontal = 4
 text = "PLAY"
 
 [node name="CreditsButton" type="Button" parent="MainScreen/CenterContainer/VBoxContainer"]
-margin_left = 184.0
-margin_top = 160.0
-margin_right = 293.0
-margin_bottom = 196.0
+margin_left = 272.0
+margin_top = 130.0
+margin_right = 377.0
+margin_bottom = 155.0
 size_flags_horizontal = 4
 text = "CREDITS"
 
@@ -274,8 +281,6 @@ autoplay = "default"
 anims/default = SubResource( 1 )
 
 [node name="CreditsScreen" type="Control" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -289,21 +294,21 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CreditsScreen/CenterContainer"]
 margin_left = 476.0
-margin_top = 191.0
+margin_top = 194.0
 margin_right = 889.0
-margin_bottom = 576.0
+margin_bottom = 573.0
 
 [node name="RichTextLabel" type="Label" parent="CreditsScreen/CenterContainer/VBoxContainer"]
-margin_right = 314.0
-margin_bottom = 116.0
+margin_right = 413.0
+margin_bottom = 97.0
 rect_pivot_offset = Vector2( 238, 58 )
 custom_fonts/font = ExtResource( 2 )
 text = "Credits"
 
 [node name="RichTextLabel2" type="Label" parent="CreditsScreen/CenterContainer/VBoxContainer"]
-margin_top = 120.0
-margin_right = 314.0
-margin_bottom = 414.0
+margin_top = 101.0
+margin_right = 413.0
+margin_bottom = 350.0
 rect_pivot_offset = Vector2( 238, 58 )
 text = "Made during the Miz Jam 1
 
@@ -316,10 +321,10 @@ Sounds:
 "
 
 [node name="BackButton" type="Button" parent="CreditsScreen/CenterContainer/VBoxContainer"]
-margin_left = 122.0
-margin_top = 418.0
-margin_right = 192.0
-margin_bottom = 454.0
+margin_left = 176.0
+margin_top = 354.0
+margin_right = 236.0
+margin_bottom = 379.0
 size_flags_horizontal = 4
 text = "BACK"
 
@@ -328,6 +333,7 @@ autoplay = "default"
 anims/default = SubResource( 2 )
 
 [node name="PauseScreen" type="Control" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -342,9 +348,9 @@ anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseScreen/CenterContainer"]
 margin_left = 506.0
-margin_top = 318.0
+margin_top = 321.0
 margin_right = 860.0
-margin_bottom = 450.0
+margin_bottom = 447.0
 
 [node name="RichTextLabel" type="Label" parent="PauseScreen/CenterContainer/VBoxContainer"]
 margin_right = 354.0
@@ -354,10 +360,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "PAUSED"
 
 [node name="ResumeButton" type="Button" parent="PauseScreen/CenterContainer/VBoxContainer"]
-margin_left = 126.0
+margin_left = 132.0
 margin_top = 101.0
-margin_right = 228.0
-margin_bottom = 132.0
+margin_right = 222.0
+margin_bottom = 126.0
 focus_mode = 0
 size_flags_horizontal = 4
 enabled_focus_mode = 0

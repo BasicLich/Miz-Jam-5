@@ -18,6 +18,8 @@ func _on_body_entered(body: Node) -> void:
 	
 	if body is Player or (body is PlayerTree and trigger_on_player_tree_enter):
 		animation_player.play("show")
+		$AudioStreamPlayer.pitch_scale = 0.65 + randf() * 0.3
+		$AudioStreamPlayer.play()
 	
 
 

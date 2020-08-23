@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/symphoid_lil-boost_3.wav-025f53a498d06c85ab13163af46a1c5a.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/player/symphoid_lil-boost_3.wav"
+dest_files=[ "res://.import/symphoid_lil-boost_3.wav-025f53a498d06c85ab13163af46a1c5a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

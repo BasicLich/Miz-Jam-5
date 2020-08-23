@@ -26,13 +26,13 @@ func bullet_collided(collision) -> void:
 	pass
 
 
-#func _on_BulletArea2D_area_entered(area: Area2D) -> void:
-##	Globals.emit_signal("bullet_hit", self, area)
-##	queue_free()
-#	pass # Replace with function body.
-#
-#
-#func _on_BulletArea2D_body_entered(body: Node) -> void:
-##	Globals.emit_signal("bullet_hit", self, body)
-##	queue_free()
-#	pass
+func _on_BulletArea2D_area_entered(area: Area2D) -> void:
+#	Globals.emit_signal("bullet_hit", self, area)
+#	queue_free()
+	pass # Replace with function body.
+
+
+func _on_BulletArea2D_body_entered(body: Node) -> void:
+#	Globals.emit_signal("bullet_hit", self, body)
+#	queue_free()
+	pass

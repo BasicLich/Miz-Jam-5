@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://objects/player/player_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://objects/player/Player.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://objects/enemies/TreeDetectionZone.tscn" type="PackedScene" id=6]
 [ext_resource path="res://objects/common/FireIndicatorLabel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/audio/sounds/player/melee sound.wav" type="AudioStream" id=8]
+[ext_resource path="res://resources/shaders/outline.shader" type="Shader" id=9]
+[ext_resource path="res://assets/art/Particle01.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/sounds/player/death2.wav" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
@@ -16,8 +19,43 @@ extents = Vector2( 12, 12 )
 radius = 5.65685
 height = 52.6863
 
-[sub_resource type="Animation" id=3]
-resource_name = "attack"
+[sub_resource type="CircleShape2D" id=3]
+radius = 12.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 9 )
+shader_param/outline_width = 0.0
+shader_param/outline_color = Color( 0, 0.431373, 0.580392, 1 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.167464, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+color = Color( 0, 0.345098, 0.74902, 1 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_random = 1.0
+color = Color( 0.709804, 0.568627, 0.364706, 1 )
+
+[sub_resource type="Animation" id=9]
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
@@ -45,8 +83,7 @@ tracks/1/keys = {
 "values": [ Vector2( 16, 0 ), Vector2( 28, -4 ), Vector2( 16, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "attack2"
+[sub_resource type="Animation" id=10]
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
@@ -74,11 +111,10 @@ tracks/1/keys = {
 "values": [ Vector2( 16, 0 ), Vector2( 14, -4 ), Vector2( 16, 0 ), Vector2( 16, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "attack2d"
+[sub_resource type="Animation" id=11]
 length = 0.3
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=12]
 radius = 24.3311
 
 [node name="Player" type="KinematicBody2D"]
@@ -88,9 +124,9 @@ script = ExtResource( 2 )
 max_velocity = Vector2( 400, 1000 )
 jump_force = 800.0
 gravity = 2000.0
-max_burn_level = 16
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 0, 0.737255, 0.905882, 1 )
 position = Vector2( 0, -16 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
@@ -114,12 +150,17 @@ collision_layer = 0
 collision_mask = 68
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordCenter/SwordPivot/Sword"]
-position = Vector2( 9.53674e-07, -32 )
+position = Vector2( -0.999999, -35 )
 shape = SubResource( 2 )
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SwordCenter/SwordPivot/Sword"]
+position = Vector2( -0.999999, -66 )
+shape = SubResource( 3 )
+
 [node name="SwordSprite" type="Sprite" parent="SwordCenter/SwordPivot/Sword"]
-modulate = Color( 0.556863, 0.27451, 0, 1 )
-position = Vector2( -8, 0 )
+modulate = Color( 0.407843, 0.945098, 1, 1 )
+material = SubResource( 4 )
+position = Vector2( -9, -10 )
 scale = Vector2( 1, 4 )
 texture = ExtResource( 4 )
 centered = false
@@ -127,10 +168,46 @@ offset = Vector2( 0, -16 )
 region_enabled = true
 region_rect = Rect2( 320, 96, 16, 16 )
 
+[node name="SwordSprite2" type="Sprite" parent="SwordCenter/SwordPivot/Sword"]
+modulate = Color( 0.407843, 0.945098, 1, 1 )
+material = SubResource( 4 )
+position = Vector2( -17, -50 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( 0, -16 )
+region_enabled = true
+region_rect = Rect2( 496, 192, 16, 16 )
+
+[node name="Light2D" type="Light2D" parent="SwordCenter/SwordPivot/Sword/SwordSprite2"]
+position = Vector2( 7.5, -7 )
+texture = ExtResource( 10 )
+texture_scale = 0.7
+color = Color( 0.0117647, 0.505882, 0.901961, 1 )
+energy = 1.2
+
+[node name="WaterParticles2D" type="Particles2D" parent="SwordCenter/SwordPivot/Sword"]
+position = Vector2( -1, -65 )
+emitting = false
+amount = 50
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.81
+local_coords = false
+process_material = SubResource( 7 )
+
+[node name="WaterParticles2D2" type="Particles2D" parent="SwordCenter/SwordPivot/Sword"]
+position = Vector2( -1, -65 )
+emitting = false
+amount = 5000
+lifetime = 2.0
+local_coords = false
+process_material = SubResource( 8 )
+
 [node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/attack = SubResource( 3 )
-anims/attack2 = SubResource( 4 )
-anims/attack2d = SubResource( 5 )
+anims/attack = SubResource( 9 )
+anims/attack2 = SubResource( 10 )
+anims/attack2d = SubResource( 11 )
 
 [node name="FootstepsStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -139,6 +216,11 @@ bus = "SoundEffects"
 
 [node name="WeaponStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -13.813
+bus = "SoundEffects"
+
+[node name="DeathStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
 bus = "SoundEffects"
 
 [node name="CoolOffTimer" type="Timer" parent="."]
@@ -153,7 +235,8 @@ fire_indicator_color = Color( 1, 0.211765, 0, 1 )
 
 [node name="CollisionShape2D" parent="TreeDetectionZone" index="0"]
 position = Vector2( 0, -24 )
-shape = SubResource( 6 )
+shape = SubResource( 12 )
+[connection signal="area_entered" from="SwordCenter/SwordPivot/Sword" to="." method="_on_Sword_area_entered"]
 [connection signal="body_entered" from="SwordCenter/SwordPivot/Sword" to="." method="_on_Sword_body_entered"]
 [connection signal="animation_finished" from="WeaponAnimationPlayer" to="." method="_on_WeaponAnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="WeaponAnimationPlayer" to="." method="_on_WeaponAnimationPlayer_animation_started"]

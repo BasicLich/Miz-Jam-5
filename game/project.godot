@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/common/FireIndicatorLabel.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "FireSpawner",
 "language": "GDScript",
 "path": "res://objects/enemies/FireSpawner.gd"
@@ -128,9 +128,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Miz-Jam-1"
-run/main_scene="res://scenes/Game.tscn"
-config/icon="res://icon.png"
+config/name="Bad fire"
+run/main_scene="res://scenes/Splashscreen.tscn"
+config/icon="res://game_icon.png"
 
 [autoload]
 
@@ -208,6 +208,8 @@ board={
 2d_physics/layer_5="player_bullet"
 2d_physics/layer_6="player_ship"
 2d_physics/layer_7="trees"
+2d_physics/layer_8="fire_influence"
+2d_physics/layer_9="tutorial_text"
 
 [rendering]
 

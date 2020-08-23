@@ -5,6 +5,9 @@
 [ext_resource path="res://assets/art/level/tile248.png" type="Texture" id=3]
 [ext_resource path="res://assets/art/level/tile164_2.png" type="Texture" id=4]
 
+
+
+
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
 

@@ -10,7 +10,8 @@ var fires_put_out: int = 0
 var play_time: float = 0.0
 var trees_planted: int = 0
 var trees_burned: int = 0
-
+var ship_launches: int = 0
+var ship_landings: int = 0
 
 var active_fires: Array = []
 var active_fire_spawners: Array = []

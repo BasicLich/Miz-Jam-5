@@ -10,6 +10,7 @@ onready var tween: Tween = $Tween
 #onready var animation_player = $AnimationPlayer
 
 const game_music = preload("res://assets/audio/music/song21.ogg")
+const game_two_music = preload("res://assets/audio/music/andrewkn_road-in-the-forest.wav")
 const game_one_music = preload("res://assets/audio/music/andrewkn_horizon.wav")
 const title_music = preload("res://assets/audio/music/song21.ogg")
 #const title_music = preload("res://Assets/audio/Juhani Junkala [Retro Game Music Pack] Title Screen.ogg")
@@ -67,6 +68,9 @@ func change_music_to(music_path, fade_length = 1, start_again = true):
 
 func _set_music_player_volume(volume: float) -> void:
 	music_player.volume_db = linear2db(volume)
+
+func set_master_bus_volume(volume: float) -> void:
+	AudioServer.set_bus_volume_db(master_bus_id, linear2db(volume))
 
 func set_music_bus_volume(volume: float) -> void:
 	AudioServer.set_bus_volume_db(music_bus_id, linear2db(volume))

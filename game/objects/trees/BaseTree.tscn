@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://objects/trees/BaseTree.gd" type="Script" id=1]
 [ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/art/tile495.png" type="Texture" id=4]
 [ext_resource path="res://resources/shaders/dissolve2D.shader" type="Shader" id=5]
 [ext_resource path="res://objects/enemies/PlayerDetectionZone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/enemies/MiniFire.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/art/Particle01.png" type="Texture" id=8]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 2
@@ -155,6 +157,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("GreenParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=18]
 tracks/0/type = "value"
@@ -226,6 +240,7 @@ z_index = -1
 collision_layer = 192
 collision_mask = 68
 script = ExtResource( 1 )
+mini_fire = ExtResource( 7 )
 
 [node name="Node2D" type="Node2D" parent="."]
 material = SubResource( 3 )
@@ -235,7 +250,6 @@ scale = Vector2( 2, 2 )
 modulate = Color( 0.596078, 0.376471, 0, 1 )
 material = SubResource( 4 )
 use_parent_material = true
-scale = Vector2( 1, 0.04 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -8 )
 region_enabled = true
@@ -245,7 +259,6 @@ region_rect = Rect2( 320, 96, 16, 16 )
 self_modulate = Color( 0.160784, 0.827451, 0, 1 )
 use_parent_material = true
 position = Vector2( 0, -14 )
-scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -8 )
 region_enabled = true
@@ -296,6 +309,13 @@ autostart = true
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 position = Vector2( 0, -36 )
 shape = SubResource( 19 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -40 )
+texture = ExtResource( 8 )
+texture_scale = 1.5
+color = Color( 0.156863, 0.619608, 0.0588235, 1 )
+energy = 0.8
 [connection signal="health_zero" from="HealthSystem" to="." method="_on_HealthSystem_health_zero"]
 [connection signal="timeout" from="BurnTimer" to="." method="_on_BurnTimer_timeout"]
 [connection signal="timeout" from="CoolDownTimer" to="." method="_on_CoolDownTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/colored_transparent_packed.png" type="Texture" id=1]
 [ext_resource path="res://objects/player/PlayerTree.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/art/Particle01.png" type="Texture" id=8]
 [ext_resource path="res://assets/audio/sounds/player/land_thomp.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=10]
+[ext_resource path="res://assets/audio/sounds/player/symphoid_lil-boost_3.wav" type="AudioStream" id=11]
 
 [sub_resource type="ShaderMaterial" id=1]
 
@@ -149,10 +150,11 @@ color = Color( 0.541176, 0.298039, 0, 1 )
 hue_variation = 0.06
 
 [node name="PlayerTree" type="KinematicBody2D"]
-collision_layer = 2
-collision_mask = 2147483661
+collision_layer = 32
+collision_mask = 2147483913
 script = ExtResource( 2 )
 speed = 600
+landing_ray_collision_mask = 1
 leaf_bullet = ExtResource( 3 )
 water_bullet_scene = ExtResource( 6 )
 
@@ -392,8 +394,12 @@ shadow_item_cull_mask = 0
 [node name="LandingStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 
+[node name="LaunchStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
 [node name="LandedParticles2D" type="Particles2D" parent="."]
 position = Vector2( -42.3177, -1.33635 )
+emitting = false
 amount = 20
 one_shot = true
 explosiveness = 0.88

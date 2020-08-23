@@ -3,7 +3,7 @@ extends Node
 
 
 
-enum Scenes {SPLASH, GAME, END}
+enum Scenes {SPLASH, MAIN_MENU, GAME, END}
 export(Scenes) var current_scene
 export var transition_time: float = 0.5
 
@@ -11,10 +11,12 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var color_rect: ColorRect = $CanvasLayer/ColorRect
 
 const SPLASH_SCENE: String = "res://scenes/Splashscreen.tscn"
+const MAIN_MENU_SCENE: String = "res://scenes/MainMenu.tscn"
 const GAME_SCENE: String = "res://scenes/Game.tscn"
 const END_SCENE: String = "res://scenes/EndScreen.tscn"
 
-var scenes_dictionary = {Scenes.SPLASH:SPLASH_SCENE, Scenes.GAME:GAME_SCENE, Scenes.END:END_SCENE}
+var scenes_dictionary = {Scenes.SPLASH:SPLASH_SCENE, Scenes.MAIN_MENU:MAIN_MENU_SCENE,  
+						Scenes.GAME:GAME_SCENE, Scenes.END:END_SCENE}
 
 var is_changing_scene = false
 

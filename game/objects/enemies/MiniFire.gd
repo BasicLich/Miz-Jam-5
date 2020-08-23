@@ -1,7 +1,7 @@
 extends BaseEnemyFire
 class_name MiniFire
 
-enum MiniFireStates{IDLE, WANDER, CHASE, LOST_TARGET, BURN, DEATH}
+enum MiniFireStates{INACTIVE, IDLE, WANDER, CHASE, LOST_TARGET, BURN, DEATH}
 
 const FLOOR_DETECT_DISTANCE = 32.0
 
@@ -9,12 +9,14 @@ export var move_speed: float = 100.0
 export var chase_speed: float = 400.0
 export var gravity = 2000.0
 export var acceleration = 300
+export var enable_when_seen: bool = true
 
 onready var platform_detector: RayCast2D = $PlatformDetector
 onready var player_detection_zone: PlayerDetectionZone = $PlayerDetectionZone
 onready var tree_detection_zone: TreeDetectionZone = $TreeDetectionZone
 onready var idle_timer: Timer = $IdleTimer
 onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var hit_audiostream_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 onready var burn_tick_timer: Timer = $BurnTickTimer
 
@@ -22,12 +24,17 @@ onready var burn_tick_timer: Timer = $BurnTickTimer
 var current_state: int = MiniFireStates.IDLE
 var wander_direction: float = -1.0
 var target: BaseTree = null
-
+var seen_by_player = false
+var burn_range: float = 16
 
 func _ready() -> void:
 	
-	change_state_to(MiniFireStates.IDLE)
-
+	burn_range = rand_range(16, 80)
+	
+	if enable_when_seen:
+		change_state_to(MiniFireStates.INACTIVE)
+	else: 
+		change_state_to(MiniFireStates.IDLE)
 
 func _physics_process(delta: float) -> void:
 	
@@ -71,9 +78,9 @@ func change_state_to(new_state: int) -> void:
 
 	
 func idle_state(delta: float) -> void:
-	
-	if sees_target():
-		change_state_to(MiniFireStates.CHASE)
+	pass
+#	if sees_target():
+#		change_state_to(MiniFireStates.CHASE)
 	
 	
 func wander_state(delta: float) -> void:
@@ -102,7 +109,7 @@ func chase_state(delta: float) -> void:
 	velocity.x = move_toward(velocity.x, direction.x * chase_speed, acceleration * delta) 
 	
 	# Check if we are close enough to the target to attack
-	if global_position.distance_to(target.global_position) < 16:
+	if global_position.distance_to(target.global_position) < burn_range:
 		target = target
 		change_state_to(MiniFireStates.BURN)
 
@@ -144,7 +151,23 @@ func _on_IdleTimer_timeout() -> void:
 
 func _on_HealthSystem_health_zero() -> void:
 	print("DEATH")
+	Globals.fires_put_out += 1
 	animation_player.play("death")
 	change_state_to(MiniFireStates.DEATH)
 	yield(animation_player, "animation_finished")
 	queue_free()
+
+
+func _on_HealthSystem_took_damage(amount) -> void:
+	hit_audiostream_player.play()
+
+
+func _on_VisibilityNotifier2D_screen_entered() -> void:
+	if not seen_by_player:
+		change_state_to(MiniFireStates.WANDER)
+		seen_by_player = true
+
+func Setup(health: int, size: Vector2 = Vector2.ONE) -> void:
+	health_system.max_health = health
+	health_system.current_health = health
+	scale = size

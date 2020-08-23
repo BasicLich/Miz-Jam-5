@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/art/tile518.png" type="Texture" id=1]
 [ext_resource path="res://assets/monochrome_transparent_packed.png" type="Texture" id=2]
@@ -10,15 +10,16 @@
 [ext_resource path="res://resources/interface/title_font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://scenes/EndScreen.gd" type="Script" id=9]
 [ext_resource path="res://scenes/Game.tscn" type="PackedScene" id=10]
+[ext_resource path="res://resources/interface/default_font.tres" type="DynamicFont" id=11]
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0337838, 0.202703, 0.777027, 0.993243 )
 colors = PoolColorArray( 0.0509804, 0.0823529, 0.0392157, 0, 0.588235, 0.894118, 0.458824, 1, 0.54902, 0.882353, 0.407843, 1, 0.996078, 1, 0.992157, 0 )
 
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
 emission_box_extents = Vector3( 700, 512, 1 )
 flag_disable_z = true
@@ -28,17 +29,17 @@ gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 2.0
-color_ramp = SubResource( 13 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="SpriteFrames" id=8]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "default",
-"speed": 10.0
+"speed": 4.0
 } ]
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.952941, 0.952941, 0.952941, 1 )
 border_color = Color( 0.588235, 0.588235, 0.588235, 1 )
 corner_radius_top_left = 24
@@ -47,7 +48,7 @@ corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 anti_aliasing = false
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=6]
 flag_disable_z = true
 direction = Vector3( -1, 0, 0 )
 spread = 5.0
@@ -58,8 +59,9 @@ orbit_velocity_random = 0.0
 scale = 4.0
 color = Color( 0.454902, 0.239216, 0.0352941, 1 )
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=7]
 resource_name = "end"
+length = 8.0
 tracks/0/type = "method"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 1
@@ -67,12 +69,69 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "EndComplete"
-} ]
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CenterContainer/VBoxContainer/RichTextLabel:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CenterContainer/VBoxContainer/Credits:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.5, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CenterContainer/VBoxContainer/Credits:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2.6, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CenterContainer/VBoxContainer/BackButton:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 7.6, 8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="EndScreen" type="Node"]
@@ -91,21 +150,22 @@ __meta__ = {
 [node name="ColorRect2" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.00392157, 0, 0.301961, 1 )
+color = Color( 0, 0.168627, 0.207843, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FireParticles2D" type="Particles2D" parent="."]
-position = Vector2( 2.28882e-05, -6.10352e-05 )
+modulate = Color( 0.494118, 0.494118, 0.494118, 1 )
+position = Vector2( 679.59, 383.213 )
 amount = 20
 lifetime = 4.0
 local_coords = false
-process_material = SubResource( 7 )
+process_material = SubResource( 3 )
 texture = ExtResource( 5 )
 
 [node name="TreeGuy" type="Node2D" parent="."]
-position = Vector2( -75.814, 520.398 )
+position = Vector2( 1227.33, 611.511 )
 rotation = -0.261799
 __meta__ = {
 "_edit_group_": true
@@ -265,8 +325,8 @@ region_rect = Rect2( 64, 32, 16, 16 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="TreeGuy/Guy"]
 position = Vector2( -107.15, -42.8598 )
 scale = Vector2( 4, 4 )
-frames = SubResource( 8 )
-frame = 1
+frames = SubResource( 4 )
+playing = true
 
 [node name="Sprite" type="Sprite" parent="TreeGuy/Guy"]
 visible = false
@@ -282,7 +342,7 @@ margin_left = -82.4111
 margin_top = -170.239
 margin_right = 103.589
 margin_bottom = -76.239
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -324,7 +384,7 @@ position = Vector2( -171.154, 0.555115 )
 amount = 50
 lifetime = 4.0
 local_coords = false
-process_material = SubResource( 10 )
+process_material = SubResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 visible = false
@@ -359,18 +419,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackButton" type="Button" parent="VBoxContainer"]
-visible = false
-margin_left = 135.0
-margin_top = 274.0
-margin_right = 178.0
-margin_bottom = 294.0
-size_flags_horizontal = 4
-text = "PLAY"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "end"
-anims/end = SubResource( 14 )
+anims/end = SubResource( 7 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -379,15 +430,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="Label" parent="CenterContainer"]
-margin_left = 288.0
-margin_top = 326.0
-margin_right = 1078.0
-margin_bottom = 442.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 272.0
+margin_top = 105.0
+margin_right = 1092.0
+margin_bottom = 663.0
+rect_min_size = Vector2( 820, 0 )
+
+[node name="RichTextLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 1232.0
+margin_bottom = 93.0
 rect_pivot_offset = Vector2( 238, 58 )
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = ExtResource( 8 )
-text = "Thanks for playing"
+text = "Thank you for playing!"
 align = 1
 valign = 1
+
+[node name="Credits" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 820.0
+margin_bottom = 529.0
+rect_pivot_offset = Vector2( 238, 58 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 11 )
+text = "Made during the Miz Jam 1 (48 non consectutive). 
+Visit me at www.edvin.space
+
+MUSIC:
+Mysterious Ambience | pixelsphere.org
+Road In The Forest | Andrewkn | freesound.org
+Horizon | Andrewkn | freesound.org
+
+SOUND EFFECTS:
+3 Melee sounds | remaxim | opengameart.org
+ambience06 | yewbic | freesound.org
+Fire -massive no cracking | Aegersum |  freesound.org
+lil boost | symphoid | freesound.org
+bubble1 | Godowan | freesound.org
+Duck_byMondfisch89 | Yudena | freesound.org
+
+FONT:
+LCD Solid Font | LCD Solid | fontspace.com
+"
+valign = 1
+autowrap = true
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 252.0
+margin_top = 533.0
+margin_right = 567.0
+margin_bottom = 558.0
+size_flags_horizontal = 4
+theme = ExtResource( 7 )
+text = "- BACK TO MAIN MENU -"
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]

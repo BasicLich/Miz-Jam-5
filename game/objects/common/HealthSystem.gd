@@ -52,6 +52,9 @@ func IsAlive() -> bool:
 func HealthLost() -> int:
 	return max_health - current_health
 
+func FractionRemainingHealth() -> float:
+	return (float(current_health) / float(max_health))
+
 func _on_InvincibilityTimer_timeout() -> void:
 	is_invincible = false
 

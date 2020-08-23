@@ -4,6 +4,7 @@ class_name BaseTree
 signal burned(tree)
 
 enum TreeStates {ALIVE, BURNING, BURNED}
+export var mini_fire: PackedScene
 
 onready var health_system: HealthSystem = $HealthSystem
 onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -45,10 +46,10 @@ func Burn(power: int) -> void:
 
 func Extinguish() -> void:
 	
-	if is_burning == false:
+	if is_burning == false or current_state == TreeStates.BURNED:
 		return
 	
-	burn_level -= 1
+	burn_level = 0
 	
 	if burn_level <= 0:
 		burn_level = 0
@@ -74,7 +75,11 @@ func _on_HealthSystem_health_zero() -> void:
 	current_state = TreeStates.BURNED
 	emit_signal("burned", self)
 	Globals.trees_burned += 1
-
+	
+	var mini_fire_instance = mini_fire.instance()
+	get_parent().add_child(mini_fire_instance)
+	mini_fire_instance.global_position = global_position 
+	
 
 func _on_CoolDownTimer_timeout() -> void:
 	

@@ -16,6 +16,10 @@ func _ready() -> void:
 #	pass
 
 func EndComplete() -> void:
-	get_tree().change_scene_to(game_scene)
+#	SceneManager.change_scene_to(SceneManager.Scenes.MAIN_MENU)
+	pass
 	
-	
+
+
+func _on_BackButton_pressed() -> void:
+	SceneManager.change_scene_to(SceneManager.Scenes.MAIN_MENU)

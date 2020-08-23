@@ -9,7 +9,7 @@ signal tree_launched
 
 export var speed = 200
 export var max_water_level = 100
-
+export (int, LAYERS_2D_PHYSICS) var landing_ray_collision_mask = 0
 
 export var leaf_bullet: PackedScene
 export var water_bullet_scene: PackedScene
@@ -97,8 +97,14 @@ func move_state(delta: float) -> void:
 	move_and_slide(velocity)
 	
 	if Input.is_action_just_pressed("board"):
-		change_state(PlayerTreeState.LANDING)
+		
+		var space_state = get_world_2d().direct_space_state
+		var result = space_state.intersect_ray(global_position, global_position + Vector2.DOWN * 1000,
+												[self], landing_ray_collision_mask)
+		if result:
+			change_state(PlayerTreeState.LANDING)
 	
+#	scale = Vector2.ONE + Vector2(velocity.normalized().x , 0)
 #	rotation = move_toward(rotation, direction.angle(), 0.5) 
 
 
@@ -117,13 +123,21 @@ func landing_state(delta: float) -> void:
 #	var collision_point = land_ray.get_collision_point()
 
 #	var distance_to_ground = global_position.distance_to(collision_point)
-
 	
-#
-#	if distance_to_ground > 10:
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position, global_position + Vector2.DOWN * 1000,
+												[self], landing_ray_collision_mask)
+	
+#	if result:
 	velocity.y += 75
-	velocity.x = lerp(velocity.x, 0, 0.05)
+#	velocity.x = lerp(velocity.x, 0, 0.05)
+	velocity.x = 0
 	move_and_slide(velocity)
+#	else:
+#		change_state(PlayerTreeState.MOVE)
+		
+#	if distance_to_ground > 10:
+	
 #	else:
 #		current_state = PlayerTreeState.LANDED
 #	print("Withing landing range, at point: %s" % str(land_ray.get_collision_point()))
@@ -131,6 +145,9 @@ func landing_state(delta: float) -> void:
 
 func landed_state(delta: float) -> void:
 	
+	if Globals.ship_landings > 0:
+		$LandingStreamPlayer.play()
+	Globals.ship_landings += 1
 	emit_signal("tree_landed")
 	velocity = Vector2.ZERO
 	passange_sprite.hide()
@@ -157,10 +174,11 @@ func launching_state(delta: float) -> void:
 
 func launched_state(delta: float) -> void:
 	
+	$LaunchStreamPlayer.play()
+	Globals.ship_launches += 1
 	emit_signal("tree_launched")
 	change_state(PlayerTreeState.LAUNCHING)
 	passange_sprite.show()
-
 
 func shoot_leaves() -> void:
 	
